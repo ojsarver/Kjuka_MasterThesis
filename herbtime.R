@@ -19,12 +19,18 @@ df_herbcl<-df_herbc%>%
            sep="_")%>% 
   select(-remove) #removes the Week_ in front of all data in the Week col
 
-df_herbcl<-df_herbcl%>%
-  mutate(Week=as.numeric(Week)) #column was character, changed to numeric
-
+df_herbclse<-df_herbcl%>%
+  mutate(Week=as.numeric(Week))%>% #column was character, changed to numeric
+  group_by(Treatment,Week)%>%
+  summarize(mu=mean(value),
+    SE=sd(value,na.rm=T)/sqrt(length(value)))%>%
+  ungroup()
 
 df_herbavgf<-df_herbavg%>%
-  fill(Week) #fills blanks in week column by copying data from the row above
+  fill(Week)#fills blanks in week column by copying data from the row above
+
+df_herbcl<-df_herbcl%>%
+  mutate(Week=as.numeric(Week))
 
 #plots
 
@@ -34,6 +40,9 @@ ggplot()+
                                   y=AVG, color=Treatment))+
   geom_point(data=df_herbcl,aes(x=Week,
                                  y=value, color=Treatment))+
+  geom_point(data=df_herbavgf,aes(x=Week,y=AVG,color=Treatment),
+             size=5)+
+  geom_errorbar(data=df_herbclse, aes(x=Week,ymin=mu-SE,ymax=mu+SE),width=.2)+
   geom_vline(xintercept=3)
 
 #beetles removed after week 3 but before week 4, have a line idk about labeling?
