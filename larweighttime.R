@@ -10,6 +10,14 @@ df_weight<-read_csv(here("su25larweight1.csv"))
 
 df_weightc<-df_weight%>%
   group_by(Treatment) %>%
-  summarize(mu_wei = mean(Weight_mg))
+  summarize(mu_wei = mean(Weight_mg),
+            SE_wei=sd(Weight_mg)/sqrt(length(Weight_mg)))
 
-#aint no way that is significant
+#graph
+
+df_weightc %>%
+  ggplot(aes(x=Treatment,
+             y=mu_wei))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=mu_wei-SE_wei,ymax=mu_wei+SE_wei),
+                width=0.2)
