@@ -59,8 +59,7 @@ mu_BGB<-df_bmassc %>%
 
 mu_nod<-df_bmassc %>%
   ggplot(aes(x=Treatment,
-             y=mu_nod,
-             fill=Beetle))+
+             y=mu_nod))+
   geom_bar(stat="identity",position = "dodge")
 
 pushViewport(viewport(layout=grid.layout(3,2)))
