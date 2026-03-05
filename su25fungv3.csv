@@ -1,23 +1,23 @@
 ﻿Treatment,Week,Treatment_sum
-C,Week 1,9
-MP,Week 1,15
-C,Week 2,9
-MP,Week 2,15
-C,Week 3,9
-MP,Week 3,15
-C,Week 4,16
-MP,Week 4,15
-C,Week 5,19
-MP,Week 5,21
-C,Week 6,24
-MP,Week 6,25
-C,Week 7,24
-MP,Week 7,26
-C,Week 8,24
-MP,Week 8,27
-C,Week 9,24
-MP,Week 9,27
-C,Week 10,24
-MP,Week 10,27
-C,Week 11,24
-MP,Week 11,27
+C,1,9
+MP,1,15
+C,2,9
+MP,2,15
+C,3,9
+MP,3,15
+C,4,16
+MP,4,15
+C,5,19
+MP,5,21
+C,6,24
+MP,6,25
+C,7,24
+MP,7,26
+C,8,24
+MP,8,27
+C,9,24
+MP,9,27
+C,10,24
+MP,10,27
+C,11,24
+MP,11,27
