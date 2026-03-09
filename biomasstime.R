@@ -81,7 +81,7 @@ print(mu_seednum,vp=viewport(layout.pos.row=3,layout.pos.col = 2))
 
 #do the multiple plots and split screen from egg time
 
-#stats run everything for all variables but nodule
+#stats --- run everything for all variables but nodule
 
 agbaov<-aov(Total_AGB~Treatment*Beetle,
           data=df_bmass)
