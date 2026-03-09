@@ -32,6 +32,11 @@ df_herbavgf<-df_herbavg%>%
 df_herbcl<-df_herbcl%>%
   mutate(Week=as.numeric(Week))
 
+sub_dfherb<-subset(df_herbclse,Week==3)
+
+sub_dfherb$Treatment[sub_dfherb$Treatment == "C"] = "Control"
+sub_dfherb$Treatment[sub_dfherb$Treatment == "MP"] = "Microplastic"
+
 #plots
 
 #combo
@@ -45,26 +50,20 @@ ggplot()+
   geom_errorbar(data=df_herbclse, aes(x=Week,ymin=mu-SE,ymax=mu+SE),width=.2)+
   geom_vline(xintercept=3)
 
-#Bar graph only on week 3 mu and se
-
 #Ask if we wanna include both line and bar graph
 
-#beetles removed after week 3 but before week 4, have a line idk about labeling?
-
-#individual
-df_herbavgf%>%
+sub_dfherb%>%
   ggplot(aes(x=Week,
-             y=AVG,
-             color=Treatment))+
-  geom_smooth()+
-  geom_point()
-
-df_herbcl%>%
-  ggplot(aes(x=Week,
-             y=value,
-             color=Treatment))+
-  geom_smooth()+
-  geom_point()
+             y=mu,
+             fill=Treatment))+
+  geom_bar(stat="identity", position="dodge")+
+  geom_errorbar(data=sub_dfherb, aes(x=Week,ymin=mu-SE,ymax=mu+SE),
+                width=.2,
+                position = position_dodge(.9))+
+  scale_fill_manual(values=c("#5A189A",
+                             "#FF9100"))+
+  labs(x="Week 3",
+       y="Average % Herbivory")
 
 #stats 
 
