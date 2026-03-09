@@ -24,13 +24,7 @@ df_repr2<-df_repr%>%
 df_repr2<-df_repr2%>%
   mutate(Reproductive_stage=as.numeric(Reproductive_stage))
 
-df_repr2$B_T<-paste(df_repr2$Beetle,df_repr2$Treatment)
-
-df_repr2<-df_repr2%>%
-  mutate(legend1=replace_when(B_T=="N C"~"Control No Beetle",
-                              "N MP"~"Microplastic No Beetle",
-                           "Y C"~"Control Beetle",
-                           "Y MP"~"Microplastic Beetle"))
+df_repr2$B_T<-paste(df_repr2$Treatment,df_repr2$Beetle)
 
 df_repr3<-df_repr2%>%
   mutate(Reproductive_stage=as.numeric(Reproductive_stage))%>%
@@ -51,7 +45,7 @@ df_vege2<-df_vege%>%
 df_vege2<-df_vege2%>%
   mutate(Vegetative_stage=as.numeric(Vegetative_stage))
 
-df_vege2$B_T<-paste(df_vege2$Beetle,df_vege2$Treatment)
+df_vege2$B_T<-paste(df_vege2$Treatment,df_vege2$Beetle)
 
 df_vege3<-df_vege2%>%
   group_by(B_T,Vegetative_stage)%>%
@@ -59,18 +53,7 @@ df_vege3<-df_vege2%>%
             SE_V=sd(value,na.rm=T)/sqrt(length(value)))%>%
   ungroup()
 
-Legend=c("Control No Beetle",
-         "Microplastic No Beetle",
-         "Control Beetle",
-         "Microplastic Beetle")
-
 #plots
-
-df_repr2%>%
-  ggplot(aes(x=Reproductive_stage,
-             y=value,
-             color=Treatment))+
-  geom_point()
 
 ggplot()+
   geom_line(data=df_repr3,aes(x=Reproductive_stage,
@@ -85,8 +68,13 @@ ggplot()+
   geom_errorbar(data=df_repr3, aes(x=Reproductive_stage,
                                    ymin=mu_R-SE_R,
                                    ymax=mu_R+SE_R),width=.2)+
+  scale_color_manual(values = c("#648FFF",
+                                "#785EF0",
+                                "#DC267F",
+                                "#FE6100"))+
   labs(x="Reproductive Stage",
-       y="Weeks To")
+       y="Weeks To",
+       color="Legend")
 
 ggplot()+
   geom_line(data=df_vege3,aes(x=Vegetative_stage,
@@ -101,42 +89,42 @@ ggplot()+
   geom_errorbar(data=df_vege3, aes(x=Vegetative_stage,
                                    ymin=mu_V-SE_V,
                                    ymax=mu_V+SE_V),width=.2)+
-  scale_color_manual(values = c("red4",
-                                         "lightblue",
-                                         "green",
-                                         "yellow"))+
+  scale_color_manual(values = c("#648FFF",
+                                         "#785EF0",
+                                         "#DC267F",
+                                         "#FE6100"))+
   labs(x="Vegetative Stage",
-       y="Weeks To")
+       y="Weeks To",
+       color="Legend")
 
 
 
-#idk how to change the order of the growth stages :(, also idk how it is 
-#interpretting na in the graph
-
-#need to combine these?
+#idk how to change the order of the growth stages :(
 
 #Stats
 
-#anova
-raov<-aov(value~Reproductive_stage*Treatment*Beetle,
-          data=df_repr2)
-
-Anova(raov,type=3)
-
-emmeans(raov,~Treatment*Beetle)
-
 #repeated measures ANOVA ****go with this model 
+#reproduction:
 
-summary(rpaov <- lme(value~Reproductive_stage*Treatment*Beetle,
+summary(rpaovr <- lme(value~Reproductive_stage*Treatment*Beetle,
                      data=df_repr2, 
                            random=~1|Plant_ID,
                            correlation=corAR1(form=~Reproductive_stage|Plant_ID), #autoregressive structure
                            control=lmeControl(returnObject=T)))
 
 
-Anova(rpaov, type=3)
-lsmeans(rpaov, pairwise~Treatment*Beetle, adjust='tukey')
+Anova(rpaovr, type=3)
+lsmeans(rpaovr, pairwise~Treatment*Beetle, adjust='tukey')
 
 #make table of ANOVA results, bold significant lines
 
-#same for vegetative
+#vegetative
+
+summary(rpaovv <- lme(value~Vegetative_stage*Treatment*Beetle,
+                     data=subset(df_vege2,!is.na(df_vege2$value)), 
+                     random=~1|Plant_ID,
+                     correlation=corAR1(form=~Vegetative_stage|Plant_ID),
+                     control=lmeControl(returnObject=T)))
+
+Anova(rpaovv, type=3)
+lsmeans(rpaovv, pairwise~Treatment*Beetle, adjust='tukey')
