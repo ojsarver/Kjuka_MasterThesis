@@ -6,6 +6,7 @@ pacman::p_load(tidyverse,
 #create data frames
 
 df_egg<-read_csv(here("su25beetleegg1.csv"))
+df_egglar<-read_csv(here("su25EGGLARVAE.csv"))
 
 #calculations
 
@@ -55,3 +56,27 @@ print(mu_egg,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
 print(total_egg,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
 print(total_mass,vp=viewport(layout.pos.row=2,layout.pos.col = 1))
 print(prop_hatched,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
+
+#stats for eggs and larvae
+
+#separate models for total mass and total egg
+
+wilcox.test(Num_Eggs~Treatment,
+       data=df_egglar)
+
+wilcox.test(Eggs_hatched~Treatment,
+       data=df_egglar)
+
+wilcox.test(Egg_mass~Treatment,
+       data=df_egglar)
+
+wilcox.test(Adults~Treatment,
+       data=df_egglar)
+
+wilcox.test(prop_hat~Treatment,
+            data=subset(df_egglar,!is.na(df_egglar$prop_hat)))
+
+wilcox.test(prop_adult~Treatment,
+            data=subset(df_egglar,!is.na(df_egglar$prop_adult)))
+
+#No need for tables, just put in pvalue, df=1, test stat (w value)
