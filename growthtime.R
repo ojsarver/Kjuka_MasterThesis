@@ -1,6 +1,9 @@
 pacman::p_load(tidyverse,
                patchwork,
-               here)
+               here,
+               car,
+               emmeans,
+               nlme)
 
 #create data frames
 
@@ -22,6 +25,12 @@ df_repr2<-df_repr2%>%
   mutate(Reproductive_stage=as.numeric(Reproductive_stage))
 
 df_repr2$B_T<-paste(df_repr2$Beetle,df_repr2$Treatment)
+
+df_repr2<-df_repr2%>%
+  mutate(legend1=replace_when(B_T=="N C"~"Control No Beetle",
+                              "N MP"~"Microplastic No Beetle",
+                           "Y C"~"Control Beetle",
+                           "Y MP"~"Microplastic Beetle"))
 
 df_repr3<-df_repr2%>%
   mutate(Reproductive_stage=as.numeric(Reproductive_stage))%>%
@@ -105,3 +114,29 @@ ggplot()+
 #interpretting na in the graph
 
 #need to combine these?
+
+#Stats
+
+#anova
+raov<-aov(value~Reproductive_stage*Treatment*Beetle,
+          data=df_repr2)
+
+Anova(raov,type=3)
+
+emmeans(raov,~Treatment*Beetle)
+
+#repeated measures ANOVA ****go with this model 
+
+summary(rpaov <- lme(value~Reproductive_stage*Treatment*Beetle,
+                     data=df_repr2, 
+                           random=~1|Plant_ID,
+                           correlation=corAR1(form=~Reproductive_stage|Plant_ID), #autoregressive structure
+                           control=lmeControl(returnObject=T)))
+
+
+Anova(rpaov, type=3)
+lsmeans(rpaov, pairwise~Treatment*Beetle, adjust='tukey')
+
+#make table of ANOVA results, bold significant lines
+
+#same for vegetative
