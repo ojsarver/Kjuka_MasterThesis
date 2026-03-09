@@ -29,8 +29,10 @@ mu_AGB<-df_bmassc %>%
   ggplot(aes(x=Treatment,
              y=mu_AGB,
              fill=Beetle))+
-  geom_bar(stat="identity",position = "dodge")
-
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_AGB-SE_AGB, ymax=mu_AGB+SE_AGB),
+                width=.2,
+                position = position_dodge(.9))
 
 mu_pod<-df_bmassc %>%
   ggplot(aes(x=Treatment,
@@ -78,3 +80,12 @@ print(mu_seednum,vp=viewport(layout.pos.row=3,layout.pos.col = 2))
 #p-value in excel like.16
 
 #do the multiple plots and split screen from egg time
+
+#stats run everything for all variables but nodule
+
+agbaov<-aov(Total_AGB~Treatment*Beetle,
+          data=df_bmass)
+
+Anova(agbaov,type=3)
+
+emmeans(agbaov,~Treatment*Beetle)
