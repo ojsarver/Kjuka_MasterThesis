@@ -45,6 +45,10 @@ ggplot()+
   geom_errorbar(data=df_herbclse, aes(x=Week,ymin=mu-SE,ymax=mu+SE),width=.2)+
   geom_vline(xintercept=3)
 
+#Bar graph only on week 3 mu and se
+
+#Ask if we wanna include both line and bar graph
+
 #beetles removed after week 3 but before week 4, have a line idk about labeling?
 
 #individual
@@ -61,3 +65,13 @@ df_herbcl%>%
              color=Treatment))+
   geom_smooth()+
   geom_point()
+
+#stats 
+
+haov<-aov(value~Treatment,
+          data=subset(df_herbcl,Week==3))
+
+anova(haov)
+
+emmeans(haov,~Treatment)
+
