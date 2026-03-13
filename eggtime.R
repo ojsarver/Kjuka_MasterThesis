@@ -8,54 +8,133 @@ pacman::p_load(tidyverse,
 df_egg<-read_csv(here("su25beetleegg1.csv"))
 df_egglar<-read_csv(here("su25EGGLARVAE.csv"))
 
-#calculations
 
-df_eggc<-df_egg%>%
+# calculations ------------------------------------------------------------
+
+
+df_egglarc<-df_egglar%>%
 group_by(Treatment) %>%
   summarize(mu_egg = mean(Num_Eggs),
             SE_egg=sd(Num_Eggs,na.rm=T)/sqrt(length(Num_Eggs)),
+            mu_hat = mean(Eggs_hatched),
+            SE_hat=sd(Eggs_hatched,na.rm=T)/sqrt(length(Eggs_hatched)),
             total_egg=sum(Num_Eggs),
-            total_mass=sum(Egg_mass_num),
-            SE_mass=sd(Egg_mass_num,na.rm=T)/sqrt(length(Egg_mass_num)), #this dont work
-            prop_hatched=(sum(Hatched))/(sum(Egg_mass_num)))
+            mu_mass=mean(Egg_mass),
+            SE_mass=sd(Egg_mass,na.rm=T)/sqrt(length(Egg_mass)),
+            prop_hatched=(sum(Eggs_hatched))/(sum(Egg_mass)),
+            mu_adult=mean(Adults),
+            SE_adult=sd(Adults,na.rm=T)/sqrt(length(Adults)))
 
-#plots, how to make multiple plots show up at once?
+df_eggc$Treatment[df_eggc$Treatment == "C"] = "Control"
+df_eggc$Treatment[df_eggc$Treatment == "MP"] = "Microplastic"
+
+# plots -------------------------------------------------------------------
+
 
 #avg eggs in each mass
-mu_egg<-df_eggc %>%
+mu_egg<-df_egglarc %>%
   ggplot(aes(x=Treatment,
-             y=mu_egg))+
+             y=mu_egg,
+             fill=Treatment))+
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_egg-SE_egg,ymax=mu_egg+SE_egg),
-                width=0.2)
+                width=0.2)+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Average Number of Eggs in Each Mass")
 
-#total eggs
+#total eggs ignore
 
 total_egg<-df_eggc %>%
   ggplot(aes(x=Treatment,
-             y=total_egg))+
-  geom_bar(stat="identity")
+             y=total_egg,
+             fill=Treatment))+
+  geom_bar(stat="identity")+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Total Number of Eggs Laid")
 
-#total # of egg masses
-total_mass<-df_eggc %>%
+#avg # of egg masses
+mu_mass<-df_egglarc %>%
   ggplot(aes(x=Treatment,
-             y=total_mass))+
-  geom_bar(stat="identity")
+             y=mu_mass,
+             fill=Treatment))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=mu_mass-SE_mass,ymax=mu_mass+SE_mass),
+                width=0.2)+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Average Number of Egg Masses Laid")
 
 #proportion of eggs that successfully hatched
 
-prop_hatched<-df_eggc %>%
+prop_hatched<-df_egglarc %>%
   ggplot(aes(x=Treatment,
-             y=prop_hatched))+
-  geom_bar(stat="identity")
+             y=prop_hatched,
+             fill=Treatment))+
+  geom_bar(stat="identity")+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Proportion of Eggs that Hatched")
+
+#prop that became adults from eggs laid
+prop_adults<-df_egglar%>%
+  ggplot(aes(x=Treatment,
+             y=prop_adult,
+             fill=Treatment))+
+  geom_bar(stat="identity")+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Proportion of Eggs that Became Adults")
+
+#avg adults
+mu_adults<-df_egglarc%>%
+  ggplot(aes(x=Treatment,
+             y=mu_adult,
+             fill=Treatment))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=mu_adult-SE_adult,ymax=mu_adult+SE_adult),
+                width=0.2)+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Average Number of Adults")
+
+#avg hatched
+
+mu_hat<-df_egglarc%>%
+  ggplot(aes(x=Treatment,
+             y=mu_hat,
+             fill=Treatment))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=mu_hat-SE_hat,ymax=mu_hat+SE_hat),
+                width=0.2)+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Average Number of Eggs that Hatched")
 
 #add error bars? and format graphs
 
-pushViewport(viewport(layout=grid.layout(2,2)))
+pushViewport(viewport(layout=grid.layout(3,2)))
 print(mu_egg,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
-print(total_egg,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
-print(total_mass,vp=viewport(layout.pos.row=2,layout.pos.col = 1))
-print(prop_hatched,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
+print(mu_mass,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
+print(mu_hat,vp=viewport(layout.pos.row=2,layout.pos.col = 1))
+print(mu_adults,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
+print(prop_hatched,vp=viewport(layout.pos.row=3,layout.pos.col = 1))
+print(prop_adults,vp=viewport(layout.pos.row=3,layout.pos.col = 2))
 
 #stats for eggs and larvae
 

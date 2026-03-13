@@ -1,0 +1,43 @@
+﻿Treatment,Beetle,Plant_ID,R_1,R_2,R_3,R_4,R_5,R_6
+Control,No Beetle,C-Sb-1,72,76,,,,
+Control,No Beetle,C-Sb-2,78,80,112,,,
+Control,No Beetle,C-Sb-3,76,78,92,94,96,114
+Control,No Beetle,C-Sb-4,72,74,86,90,92,114
+Control,No Beetle,C-Sb-5,74,78,94,98,102,114
+Control,No Beetle,C-Sb-6,74,76,88,92,94,
+Control,No Beetle,C-Sb-7,76,80,94,96,98,
+Control,No Beetle,C-Sb-8,84,86,104,112,,
+Control,Beetle,C-MBB-1,76,78,88,92,94,114
+Control,Beetle,C-MBB-2,78,80,90,92,94,
+Control,Beetle,C-MBB-3,72,74,90,94,98,114
+Control,Beetle,C-MBB-4,72,78,84,88,106,
+Control,Beetle,C-MBB-5,76,78,92,94,100,
+Control,Beetle,C-MBB-6,82,84,94,98,100,114
+Control,Beetle,C-MBB-7,74,76,88,90,92,114
+Control,Beetle,C-MBB-8,74,80,100,102,114,
+Control,No Beetle,C-Ex-1,76,78,88,92,96,114
+Control,No Beetle,C-Ex-2,74,76,90,94,96,114
+Control,No Beetle,C-Ex-3,80,84,100,106,112,
+Control,No Beetle,C-Ex-4,82,84,94,98,102,130
+Control,No Beetle,C-Ex-5,76,78,88,92,108,120
+Microplastic,No Beetle,MP-Sb-1,74,76,100,102,108,120
+Microplastic,No Beetle,MP-Sb-2,72,74,88,92,94,114
+Microplastic,No Beetle,MP-Sb-3,74,80,94,100,104,122
+Microplastic,No Beetle,MP-Sb-4,74,76,92,96,102,116
+Microplastic,No Beetle,MP-Sb-5,74,76,94,98,102,120
+Microplastic,No Beetle,MP-Sb-6,76,80,90,94,98,114
+Microplastic,No Beetle,MP-Sb-7,76,80,96,98,104,114
+Microplastic,No Beetle,MP-Sb-8,74,76,84,90,96,114
+Microplastic,Beetle,MP-MBB-1,72,74,84,88,92,112
+Microplastic,Beetle,MP-MBB-2,72,74,92,96,112,126
+Microplastic,Beetle,MP-MBB-3,80,84,104,108,114,126
+Microplastic,Beetle,MP-MBB-4,74,76,104,106,114,126
+Microplastic,Beetle,MP-MBB-5,72,76,84,88,92,112
+Microplastic,Beetle,MP-MBB-6,72,74,82,90,100,128
+Microplastic,Beetle,MP-MBB-7,78,80,92,94,96,114
+Microplastic,Beetle,MP-MBB-8,72,74,88,92,94,114
+Microplastic,No Beetle,MP-Ex-1,72,74,84,88,92,114
+Microplastic,No Beetle,MP-Ex-2,76,78,96,98,102,120
+Microplastic,No Beetle,MP-Ex-3,72,74,84,88,92,114
+Microplastic,No Beetle,MP-Ex-4,72,74,90,98,102,114
+Microplastic,No Beetle,MP-Ex-5,72,74,88,94,96,114

@@ -1,62 +1,123 @@
 pacman::p_load(tidyverse,
                patchwork,
-               here)
-df_fungpa<-read_csv(here("fung_presenceabsence.csv"))
-df_fung<-read_csv(here("su25fungv2.csv"))
-df_fung2<-read_csv(here("su25fungv3.csv"))
-df_favg<-read_csv(here("su25fungavg.csv"))
+               here,
+               grid)
 
-#tidy data
+df_sufungpa<-read_csv(here("fung_presenceabsence.csv"))
+df_fafungpa<-read_csv(here("fa25fung.csv"))
 
-df_fung<-df_fung%>%
-  fill(Week)
 
-df_fpa<-df_fungpa%>%
-  pivot_longer(cols=Week_1:Week_11, #converts the named col to row
-               names_to="Week", #name the new col to put the new row data into
-               values_to="value")%>% #specifying data in new col should be a value
+# tidy data ---------------------------------------------------------------
+
+#summer
+df_sufpa<-df_sufungpa%>%
+  pivot_longer(cols=Week_1:Week_11,
+               names_to="Week",
+               values_to="value")%>%
   separate(col=Week,
            into=c("remove","Week"),
            sep="_")%>% 
-  select(-remove) #removes the Week_ in front of all data in the Week col
+  select(-remove)
 
-df_fpa<-df_fpa%>%
+df_sufpa<-df_sufpa%>%
   mutate(Week=as.numeric(Week))
 
-#plots
+df_sufpa$B_T<-paste(df_sufpa$Treatment,df_sufpa$Beetle)
 
-df_fung%>%
-  ggplot(aes(x= Week,
-             y= Treatment_sum,
-             color=Treatment))+
-  geom_line()+
-  labs(x="Week Number",
-       y="Cumulative Plants W/ Damage")
+df_sufpavg<-df_sufpa%>%
+  group_by(B_T,Week)%>%
+  summarize(mu_f=mean(value),
+            SE_f=sd(value,na.rm=T)/sqrt(length(value)))%>%
+  ungroup()
 
-df_fung2%>%
-  ggplot(aes(x= Week,
-             y= Treatment_sum,
-             color=Treatment))+
-  geom_line()
+#fall
 
-ggplot()+
-  geom_line(data=df_favg,aes(x=Week,
-                                 y=AVG, color=Treatment))+
-  geom_point(data=df_favg,aes(x=Week,
-                                y=AVG, color=Treatment))
+df_fafungpa$B_T<-paste(df_fafungpa$Treatment,df_fafungpa$Beetle)
 
-+
-  geom_errorbar(data=df_herbclse, aes(x=Week,ymin=mu-SE,ymax=mu+SE),width=.2)+
-  geom_vline(xintercept=3)
+df_fafpa<-df_fafungpa%>%
+  pivot_longer(cols=Week_1:Week_14,
+               names_to="Week", 
+               values_to="value")%>% 
+  separate(col=Week,
+           into=c("remove","Week"),
+           sep="_")%>% 
+  select(-remove)
 
-#stats
+df_fafpa<-df_fafpa%>%
+  mutate(Week=as.numeric(Week))
 
-fglmm<-glm(Week8~Beetle*Treatment,
-           data=df_fungpa,
+df_fafpa$B_T<-paste(df_fafpa$Treatment,df_fafpa$Beetle)
+
+df_fafpavg<-df_fafpa%>%
+  group_by(Treatment,Beetle,Week)%>%
+  summarize(mu_f=mean(value),
+            SE_f=sd(value,na.rm=T)/sqrt(length(value)))%>%
+  ungroup()
+
+df_fafpavg$B_T<-paste(df_fafpavg$Treatment,df_fafpavg$Beetle)
+
+pushViewport(viewport(layout=grid.layout(2,2)))
+print(mu_egg,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
+print(total_egg,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
+
+# plots -------------------------------------------------------------------
+#summer
+
+sufp<-ggplot()+
+  geom_line(data=df_sufpavg,aes(x=Week,
+                                 y=mu_f, color=B_T))+
+  geom_point(data=df_sufpavg,aes(x=Week,
+                                y=mu_f, color=B_T))+
+  geom_errorbar(data=df_sufpavg, aes(x=Week,ymin=mu_f-SE_f,ymax=mu_f+SE_f),width=.2)+
+  scale_color_manual(values = c("indianred1",
+                                "skyblue1",
+                                "orangered4",
+                                "royalblue1"))+
+  theme_bw()+
+  labs(x="Week",
+       y="Proportion of Plants with Fungal Damage")+
+  theme(legend.position = "none")
+
+#fall
+
+fafp<-ggplot()+
+  geom_line(data=df_fafpavg,aes(x=Week,
+                                y=mu_f, color=B_T))+
+  geom_point(data=df_fafpavg,aes(x=Week,
+                                 y=mu_f, color=B_T))+
+  geom_errorbar(data=df_fafpavg, aes(x=Week,ymin=mu_f-SE_f,ymax=mu_f+SE_f),
+                width=.2)+
+  scale_color_manual(values = c("indianred1",
+                                "skyblue1",
+                                "orangered4",
+                                "royalblue1"))+
+  theme_bw()+
+  labs(x="Week",
+       y="Average Percent of Fungal Damage",
+       color="Legend")
+
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(sufp,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
+print(fafp,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
+
+
+# stats' ------------------------------------------------------------------
+
+fglmmsu<-glm(Week_8~Beetle*Treatment,
+           data=df_sufungpa,
            family=binomial)
 
-Anova(fglmm, type=3)
+Anova(fglmmsu, type=3)
 
-lsmeans(fglmm, pairwise~Treatment*Beetle, adjust='tukey')
+lsmeans(fglmmsu, pairwise~Treatment*Beetle, adjust='tukey')
 
-#beetle plants have less fungal presence even after adjusting for observations            
+#beetle plants have less fungal presence even after adjusting for observations 
+
+#stole from biomass data idk if it is right
+
+haov<-aov(value~Treatment*Beetle,
+          data=subset(df_fafpa,Week==10))
+
+Anova(haov,type=3)
+
+emmeans(haov,~Treatment*Beetle)

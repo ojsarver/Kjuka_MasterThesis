@@ -23,7 +23,7 @@ df_bmassc<-df_bmass%>%
 
 
 
-#plots - do we wanna include nodules despite small sample size?
+#plots
 
 mu_AGB<-df_bmassc %>%
   ggplot(aes(x=Treatment,
@@ -32,32 +32,69 @@ mu_AGB<-df_bmassc %>%
   geom_bar(stat="identity",position = "dodge")+
   geom_errorbar(aes(ymin=mu_AGB-SE_AGB, ymax=mu_AGB+SE_AGB),
                 width=.2,
-                position = position_dodge(.9))
+                position = position_dodge(.9))+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Average Aboveground Biomass")
 
 mu_pod<-df_bmassc %>%
   ggplot(aes(x=Treatment,
              y=mu_pod,
              fill=Beetle))+
-  geom_bar(stat="identity",position = "dodge")
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_pod-SE_pod, ymax=mu_pod+SE_pod),
+                width=.2,
+                position = position_dodge(.9))+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Average Number of Pods")
 
 
 mu_seednum<-df_bmassc %>%
   ggplot(aes(x=Treatment,
              y=mu_seednum,
              fill=Beetle))+
-  geom_bar(stat="identity",position = "dodge")
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_seednum-SE_seednum, ymax=mu_seednum+SE_seednum),
+                width=.2,
+                position = position_dodge(.9))+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Average Number of Seeds")
 
 mu_seedwei<-df_bmassc %>%
   ggplot(aes(x=Treatment,
              y=mu_seedwei,
              fill=Beetle))+
-  geom_bar(stat="identity",position = "dodge")
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_seedwei-SE_seedwei, ymax=mu_seedwei+SE_seedwei),
+                width=.2,
+                position = position_dodge(.9))+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Average Weight of Seeds")
 
 mu_BGB<-df_bmassc %>%
   ggplot(aes(x=Treatment,
              y=mu_BGB,
              fill=Beetle))+
-  geom_bar(stat="identity",position = "dodge")
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_BGB-SE_BGB, ymax=mu_BGB+SE_BGB),
+                width=.2,
+                position = position_dodge(.9))+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(x = "",
+       y = "Average Belowground Biomass")
 
 mu_nod<-df_bmassc %>%
   ggplot(aes(x=Treatment,
@@ -67,19 +104,9 @@ mu_nod<-df_bmassc %>%
 pushViewport(viewport(layout=grid.layout(3,2)))
 print(mu_AGB,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
 print(mu_BGB,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
-print(mu_nod,vp=viewport(layout.pos.row=2,layout.pos.col = 1))
-print(mu_pod,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
-print(mu_seedwei,vp=viewport(layout.pos.row=3,layout.pos.col = 1))
-print(mu_seednum,vp=viewport(layout.pos.row=3,layout.pos.col = 2))
-
-
-#geom_errorbar(aes(ymin=mu_AGB-SE_AGB,ymax=mu_AGB+SE_AGB),width=0.2)
-#cant get it to work but leaving code in case I need it
-
-
-#p-value in excel like.16
-
-#do the multiple plots and split screen from egg time
+print(mu_pod,vp=viewport(layout.pos.row=2,layout.pos.col = 1))
+print(mu_seedwei,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
+print(mu_seednum,vp=viewport(layout.pos.row=3,layout.pos.col = 1))
 
 #stats --- run everything for all variables but nodule
 
@@ -89,3 +116,35 @@ agbaov<-aov(Total_AGB~Treatment*Beetle,
 Anova(agbaov,type=3)
 
 emmeans(agbaov,~Treatment*Beetle)
+#
+
+podaov<-aov(Pod_num~Treatment*Beetle,
+            data=df_bmass)
+
+Anova(podaov,type=3)
+
+emmeans(podaov,~Treatment*Beetle)
+#
+
+snaov<-aov(Seed_num~Treatment*Beetle,
+            data=df_bmass)
+
+Anova(snaov,type=3)
+
+emmeans(snaov,~Treatment*Beetle)
+#
+
+swbaov<-aov(Seed_weight~Treatment*Beetle,
+            data=df_bmass)
+
+Anova(swbaov,type=3)
+
+emmeans(swbaov,~Treatment*Beetle)
+#
+
+bgbaov<-aov(Total_BGB~Treatment*Beetle,
+            data=df_bmass)
+
+Anova(bgbaov,type=3)
+
+emmeans(bgbaov,~Treatment*Beetle)
