@@ -10,7 +10,7 @@ pacman::p_load(tidyverse,
 df_surepr<-read_csv(here("su25growr1.csv"))
 df_suvege<-read_csv(here("su25Vgrow1.csv"))
 df_farepr<-read_csv(here("fa25repr1.csv"))
-df_favege<-read_csv(here("fa25veggrow1.csv"))
+df_favege<-read_csv(here("fa25veggrow2.csv"))
 
 # Tidy data frames --------------------------------------------------------
 
@@ -27,6 +27,9 @@ df_suvege2<-df_suvege%>%
 
 df_suvege2<-df_suvege2%>%
   mutate(Vegetative_stage=as.numeric(Vegetative_stage))
+
+df_subb<-subset(df_suvege2,Vegetative_stage <=10)
+df_suab<-subset(df_suvege2,Vegetative_stage >10)
 
 df_suvege2$B_T<-paste(df_suvege2$Treatment,df_suvege2$Beetle)
 
@@ -50,7 +53,9 @@ df_favege2<-df_favege%>%
 df_favege2<-df_favege2%>%
   mutate(Vegetative_stage=as.numeric(Vegetative_stage))
 
-df_favege2$B_T<-paste(df_favege2$Treatment,df_favege2$Beetle)
+df_fabb<-subset(df_favege2, Vegetative_stage <=14)
+
+df_favege2$B_T<-paste(df_favege2$Treatment,df_favege2$Beetles)
 
 df_favege3<-df_favege2%>%
   group_by(B_T,Vegetative_stage)%>%
@@ -218,7 +223,7 @@ summary(rpaovr <- lme(value~Reproductive_stage*Treatment*Beetle,
 Anova(rpaovr, type=3)
 lsmeans(rpaovr, pairwise~Treatment*Beetle, adjust='tukey')
 
-#reproduction fall-mad about NA's that need filled in
+#reproduction fall
 
 summary(rpaovrf <- lme(value~Reproductive_stage*Treatment*Beetle,
                       data=df_farepr2, 
@@ -230,24 +235,46 @@ summary(rpaovrf <- lme(value~Reproductive_stage*Treatment*Beetle,
 Anova(rpaovrf, type=3)
 lsmeans(rpaovrf, pairwise~Treatment*Beetle, adjust='tukey')
 
-#vegetative summer
+#vegetative summer - before beetle
 
-summary(rpaovv <- lme(value~Vegetative_stage*Treatment*Beetle,
-                     data=subset(df_suvege2,!is.na(df_suvege2$value)), 
+summary(rpaovv1 <- lme(value~Vegetative_stage*Treatment,
+                     data=subset(df_subb,!is.na(df_subb$value)), 
                      random=~1|Plant_ID,
                      correlation=corAR1(form=~Vegetative_stage|Plant_ID),
                      control=lmeControl(returnObject=T)))
 
-Anova(rpaovv, type=3)
-lsmeans(rpaovv, pairwise~Treatment*Beetle, adjust='tukey')
+Anova(rpaovv1, type=3)
+lsmeans(rpaovv1, pairwise~Treatment, adjust='tukey')
 
-#vegetative fall
+#vegetative summer after beetle
 
-summary(rpaovvf <- lme(value~Vegetative_stage*Treatment*Beetle,
-                      data=subset(df_favege2,!is.na(df_favege2$value)), 
+summary(rpaovv2 <- lme(value~Vegetative_stage*Treatment*Beetle,
+                      data=subset(df_suab,!is.na(df_suab$value)), 
                       random=~1|Plant_ID,
                       correlation=corAR1(form=~Vegetative_stage|Plant_ID),
                       control=lmeControl(returnObject=T)))
 
-Anova(rpaovvf, type=3)
-lsmeans(rpaovvf, pairwise~Treatment*Beetle, adjust='tukey')
+Anova(rpaovv2, type=3)
+lsmeans(rpaovv2, pairwise~Treatment*Beetle, adjust='tukey')
+
+#vegetative fall bb
+
+summary(rpaovvf1 <- lme(value~Vegetative_stage*Treatment,
+                      data=subset(df_fabb,!is.na(df_fabb$value)), 
+                      random=~1|Plant_ID,
+                      correlation=corAR1(form=~Vegetative_stage|Plant_ID),
+                      control=lmeControl(returnObject=T)))
+
+Anova(rpaovvf1, type=3)
+lsmeans(rpaovvf1, pairwise~Treatment, adjust='tukey')
+
+#vegetative fall ab
+
+summary(rpaovvf2 <- lme(value~Vegetative_stage*Treatment*Beetle,
+                        data=subset(df_favege2,!is.na(df_favege2$value)), 
+                        random=~1|Plant_ID,
+                        correlation=corAR1(form=~Vegetative_stage|Plant_ID),
+                        control=lmeControl(returnObject=T)))
+
+Anova(rpaovvf2, type=3)
+lsmeans(rpaovvf2, pairwise~Treatment*Beetle, adjust='tukey')

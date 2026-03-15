@@ -1,59 +1,59 @@
 ﻿Treatment,Beetle,Plant_ID,Total_AGB,Pod_num,Seed_num,Seed_weight,Nodule_num,Total_BGB
-Control,N,C-Sb-1,19.3,38,55,2.67,352,5.79
-Control,N,C-Sb-2,36.37,53,93,9.07,NA,7.89
-Control,N,C-Sb-3,42.62,47,88,11.51,NA,3.96
-Control,N,C-Sb-4,16.11,33,60,2.95,301,3.98
-Control,N,C-Sb-5,32.22,38,80,4.13,376,8.32
-Control,N,C-Sb-6,16.72,27,44,8.18,NA,3.53
-Control,N,C-Sb-7,28.72,45,74,7.74,NA,4.87
-Control,N,C-Sb-8,3.1,6,12,1.25,NA,1.43
-Control,N,C-MBB-1,28.22,47,90,10.43,351,4.9
-Control,Y,C-MBB-2,38.36,59,95,8.72,NA,5.87
-Control,N,C-MBB-3,33.04,48,86,6.36,406,7.9
-Control,Y,C-MBB-4,34.66,52,83,8.17,NA,4.65
-Control,Y,C-MBB-5,34.38,42,89,9.15,NA,5.29
-Control,N,C-MBB-6,36.51,68,90,9.23,NA,5.37
-Control,N,C-MBB-7,29.64,48,96,5.84,650,8.93
-Control,Y,C-MBB-8,35.44,48,97,12.4,NA,2.82
-Control,N,C-Pf-1,11.03,13,21,3.87,NA,3.17
-Control,N,C-Pf-2,33.6,49,97,5.33,475,6.68
-Control,N,C-Pf-3,28.92,48,88,10.19,501,3.72
-Control,Y,C-Pf-4,35.82,53,97,10.46,NA,10.22
-Control,N,C-Pf-5,36.44,63,101,10.76,NA,7.52
-Control,Y,C-Pf-6,35.84,54,95,10.78,NA,10.03
-Control,Y,C-Pf-7,35.87,52,95,10.18,420,4.06
-Control,Y,C-Pf-8,38.29,55,79,7.65,NA,7.81
-Control,N,C-Ex-1,32.44,58,100,8.36,812,10.54
-Control,N,C-Ex-2,41.48,36,119,3.34,571,10.86
-Control,N,C-Ex-3,36.02,54,97,9.56,NA,4.28
-Control,N,C-Ex-4,32.16,69,129,11.2,NA,7.87
-Control,N,C-Ex-5,33.01,51,89,9.24,NA,4.18
-Microplastic,N,MP-Sb-1,46.68,60,118,7.7,482,8.12
-Microplastic,N,MP-Sb-2,34.9,62,117,7.08,618,5.41
-Microplastic,N,MP-Sb-3,48.75,63,113,14.09,NA,8.25
-Microplastic,N,MP-Sb-4,38.67,59,106,12.41,635,8.92
-Microplastic,N,MP-Sb-5,37.67,48,95,8.81,713,8.77
-Microplastic,N,MP-Sb-6,40.25,54,102,6.26,626,8.2
-Microplastic,N,MP-Sb-7,42.89,58,107,14.72,591,6.3
-Microplastic,N,MP-Sb-8,48.88,70,140,5.98,423,8.17
-Microplastic,N,MP-MBB-1,40.15,57,106,14.37,NA,4.03
-Microplastic,Y,MP-MBB-2,40.88,59,110,14.12,NA,4.33
-Microplastic,N,MP-MBB-3,26.22,44,90,14.19,NA,6.04
-Microplastic,Y,MP-MBB-4,11.82,48,93,12.3,NA,2.29
-Microplastic,Y,MP-MBB-5,39.82,59,109,13.61,NA,6.51
-Microplastic,Y,MP-MBB-6,41.1,56,102,11.25,NA,4.18
-Microplastic,N,MP-MBB-7,35.25,50,93,14.25,NA,5.83
-Microplastic,N,MP-MBB-8,13.21,49,95,11.98,NA,2.83
-Microplastic,Y,MP-Pf-1,30.64,44,81,9.24,NA,4.68
-Microplastic,N,MP-Pf-2,31.43,45,89,7.66,396,5
-Microplastic,N,MP-Pf-3,34.54,49,113,6.27,NA,5.81
-Microplastic,N,MP-Pf-4,40.18,48,95,12.45,434,5.44
-Microplastic,Y,MP-Pf-5,40.36,59,101,12.59,483,4.33
-Microplastic,Y,MP-Pf-6,37.99,59,104,11.75,NA,5.06
-Microplastic,N,MP-Pf-7,36.35,52,87,12.23,NA,8.56
-Microplastic,Y,MP-Pf-8,38.29,57,99,11.85,NA,5.86
-Microplastic,N,MP-Ex-1,36.31,56,108,11.13,NA,12.8
-Microplastic,N,MP-Ex-2,30.78,56,107,12.91,NA,7.44
-Microplastic,N,MP-Ex-3,33.84,54,103,11.14,NA,9.88
-Microplastic,N,MP-Ex-4,29.85,46,95,11.19,NA,10.72
-Microplastic,N,MP-Ex-5,37.14,55,96,11.31,NA,11.85
+Control,No beetle,C-Sb-1,19.3,38,55,2.67,352,5.79
+Control,No beetle,C-Sb-2,36.37,53,93,9.07,NA,7.89
+Control,No beetle,C-Sb-3,42.62,47,88,11.51,NA,3.96
+Control,No beetle,C-Sb-4,16.11,33,60,2.95,301,3.98
+Control,No beetle,C-Sb-5,32.22,38,80,4.13,376,8.32
+Control,No beetle,C-Sb-6,16.72,27,44,8.18,NA,3.53
+Control,No beetle,C-Sb-7,28.72,45,74,7.74,NA,4.87
+Control,No beetle,C-Sb-8,3.1,6,12,1.25,NA,1.43
+Control,No beetle,C-MBB-1,28.22,47,90,10.43,351,4.9
+Control,Beetle,C-MBB-2,38.36,59,95,8.72,NA,5.87
+Control,No beetle,C-MBB-3,33.04,48,86,6.36,406,7.9
+Control,Beetle,C-MBB-4,34.66,52,83,8.17,NA,4.65
+Control,Beetle,C-MBB-5,34.38,42,89,9.15,NA,5.29
+Control,No beetle,C-MBB-6,36.51,68,90,9.23,NA,5.37
+Control,No beetle,C-MBB-7,29.64,48,96,5.84,650,8.93
+Control,Beetle,C-MBB-8,35.44,48,97,12.4,NA,2.82
+Control,No beetle,C-Pf-1,11.03,13,21,3.87,NA,3.17
+Control,No beetle,C-Pf-2,33.6,49,97,5.33,475,6.68
+Control,No beetle,C-Pf-3,28.92,48,88,10.19,501,3.72
+Control,Beetle,C-Pf-4,35.82,53,97,10.46,NA,10.22
+Control,No beetle,C-Pf-5,36.44,63,101,10.76,NA,7.52
+Control,Beetle,C-Pf-6,35.84,54,95,10.78,NA,10.03
+Control,Beetle,C-Pf-7,35.87,52,95,10.18,420,4.06
+Control,Beetle,C-Pf-8,38.29,55,79,7.65,NA,7.81
+Control,No beetle,C-Ex-1,32.44,58,100,8.36,812,10.54
+Control,No beetle,C-Ex-2,41.48,36,119,3.34,571,10.86
+Control,No beetle,C-Ex-3,36.02,54,97,9.56,NA,4.28
+Control,No beetle,C-Ex-4,32.16,69,129,11.2,NA,7.87
+Control,No beetle,C-Ex-5,33.01,51,89,9.24,NA,4.18
+Microplastic,No beetle,MP-Sb-1,46.68,60,118,7.7,482,8.12
+Microplastic,No beetle,MP-Sb-2,34.9,62,117,7.08,618,5.41
+Microplastic,No beetle,MP-Sb-3,48.75,63,113,14.09,NA,8.25
+Microplastic,No beetle,MP-Sb-4,38.67,59,106,12.41,635,8.92
+Microplastic,No beetle,MP-Sb-5,37.67,48,95,8.81,713,8.77
+Microplastic,No beetle,MP-Sb-6,40.25,54,102,6.26,626,8.2
+Microplastic,No beetle,MP-Sb-7,42.89,58,107,14.72,591,6.3
+Microplastic,No beetle,MP-Sb-8,48.88,70,140,5.98,423,8.17
+Microplastic,No beetle,MP-MBB-1,40.15,57,106,14.37,NA,4.03
+Microplastic,Beetle,MP-MBB-2,40.88,59,110,14.12,NA,4.33
+Microplastic,No beetle,MP-MBB-3,26.22,44,90,14.19,NA,6.04
+Microplastic,Beetle,MP-MBB-4,11.82,48,93,12.3,NA,2.29
+Microplastic,Beetle,MP-MBB-5,39.82,59,109,13.61,NA,6.51
+Microplastic,Beetle,MP-MBB-6,41.1,56,102,11.25,NA,4.18
+Microplastic,No beetle,MP-MBB-7,35.25,50,93,14.25,NA,5.83
+Microplastic,No beetle,MP-MBB-8,13.21,49,95,11.98,NA,2.83
+Microplastic,Beetle,MP-Pf-1,30.64,44,81,9.24,NA,4.68
+Microplastic,No beetle,MP-Pf-2,31.43,45,89,7.66,396,5
+Microplastic,No beetle,MP-Pf-3,34.54,49,113,6.27,NA,5.81
+Microplastic,No beetle,MP-Pf-4,40.18,48,95,12.45,434,5.44
+Microplastic,Beetle,MP-Pf-5,40.36,59,101,12.59,483,4.33
+Microplastic,Beetle,MP-Pf-6,37.99,59,104,11.75,NA,5.06
+Microplastic,No beetle,MP-Pf-7,36.35,52,87,12.23,NA,8.56
+Microplastic,Beetle,MP-Pf-8,38.29,57,99,11.85,NA,5.86
+Microplastic,No beetle,MP-Ex-1,36.31,56,108,11.13,NA,12.8
+Microplastic,No beetle,MP-Ex-2,30.78,56,107,12.91,NA,7.44
+Microplastic,No beetle,MP-Ex-3,33.84,54,103,11.14,NA,9.88
+Microplastic,No beetle,MP-Ex-4,29.85,46,95,11.19,NA,10.72
+Microplastic,No beetle,MP-Ex-5,37.14,55,96,11.31,NA,11.85

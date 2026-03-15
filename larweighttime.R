@@ -27,6 +27,8 @@ df_weightc %>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_wei-SE_wei,ymax=mu_wei+SE_wei),
                 width=0.2)+
+  annotate('text', x = 1, y = 19, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 19, label = '(a)', size = 6)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+

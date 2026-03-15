@@ -30,6 +30,8 @@ df_sufpavg<-df_sufpa%>%
             SE_f=sd(value,na.rm=T)/sqrt(length(value)))%>%
   ungroup()
 
+su8<-subset(df_sufpavg,Week==8)
+
 #fall
 
 df_fafungpa$B_T<-paste(df_fafungpa$Treatment,df_fafungpa$Beetle)
@@ -56,45 +58,51 @@ df_fafpavg<-df_fafpa%>%
 
 df_fafpavg$B_T<-paste(df_fafpavg$Treatment,df_fafpavg$Beetle)
 
-pushViewport(viewport(layout=grid.layout(2,2)))
-print(mu_egg,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
-print(total_egg,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
+fa10<-subset(df_fafpavg, Week==10)
 
 # plots -------------------------------------------------------------------
 #summer
 
-sufp<-ggplot()+
-  geom_line(data=df_sufpavg,aes(x=Week,
-                                 y=mu_f, color=B_T))+
-  geom_point(data=df_sufpavg,aes(x=Week,
-                                y=mu_f, color=B_T))+
-  geom_errorbar(data=df_sufpavg, aes(x=Week,ymin=mu_f-SE_f,ymax=mu_f+SE_f),width=.2)+
-  scale_color_manual(values = c("indianred1",
-                                "skyblue1",
-                                "orangered4",
-                                "royalblue1"))+
+sufp<-su8%>%
+  ggplot(aes(x=B_T,
+             y=mu_f,
+             fill=B_T))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=mu_f-SE_f, ymax=mu_f+SE_f,
+                width=0.2))+
+  annotate('text', x = 1, y = 1.1, label = '(a)', size = 8)+
+  annotate('text', x = 2, y = 1.1, label = '(b)', size = 8)+
+  annotate('text', x = 3, y = 1.1, label = '(a)', size = 8)+
+  annotate('text', x = 4, y = 1.1, label = '(b)', size = 8)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
-  labs(x="Week",
-       y="Proportion of Plants with Fungal Damage")+
-  theme(legend.position = "none")
+  theme(axis.title.x = element_text(size = 15,margin=margin(10,0,0,0)),
+        axis.title.y = element_text(size = 15,margin=margin(0,10,0,0)),
+        legend.position = "none")+
+  labs(x="Summer Week 8",
+       y="Proportion of Plants with Fungal Damage")
+
 
 #fall
 
-fafp<-ggplot()+
-  geom_line(data=df_fafpavg,aes(x=Week,
-                                y=mu_f, color=B_T))+
-  geom_point(data=df_fafpavg,aes(x=Week,
-                                 y=mu_f, color=B_T))+
-  geom_errorbar(data=df_fafpavg, aes(x=Week,ymin=mu_f-SE_f,ymax=mu_f+SE_f),
-                width=.2)+
-  scale_color_manual(values = c("indianred1",
-                                "skyblue1",
-                                "orangered4",
-                                "royalblue1"))+
+fafp<-fa10%>%
+  ggplot(aes(x=B_T,
+             y=mu_f,
+             fill=B_T))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=mu_f-SE_f, ymax=mu_f+SE_f,
+                    width=0.2))+
+  annotate('text', x = 1, y = .0225, label = '(a)', size = 8)+
+  annotate('text', x = 2, y = .0225, label = '(a)', size = 8)+
+  annotate('text', x = 3, y = .0225, label = '(a)', size = 8)+
+annotate('text', x = 4, y = .0225, label = '(b)', size = 8)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
-  labs(x="Week",
-       y="Average Percent of Fungal Damage",
-       color="Legend")
+  theme(axis.title.x = element_text(size = 15,margin=margin(10,0,0,0)),
+         axis.title.y = element_text(size = 15,margin=margin(0,10,0,0)),
+         legend.position = "none")+
+  labs(x="Fall Week 10",
+       y="Average Percentage of Fungal Damage")
 
 pushViewport(viewport(layout=grid.layout(1,2)))
 print(sufp,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
