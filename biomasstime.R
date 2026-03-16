@@ -3,7 +3,8 @@ pacman::p_load(tidyverse,
                here,
                car,
                emmeans,
-               nlme)
+               nlme,
+               grid)
 
 #create data frames
 
@@ -36,10 +37,10 @@ mu_AGB<-df_bmassc %>%
   geom_errorbar(aes(ymin=mu_AGB-SE_AGB, ymax=mu_AGB+SE_AGB),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 41, label = '(a)', size = 8)+
-  annotate('text', x = 2, y = 41, label = '(b)', size = 8)+
-  annotate('text', x = 3, y = 41, label = '(a)', size = 8)+
-  annotate('text', x = 4, y = 41, label = '(a)', size = 8)+
+  annotate('text', x = 1, y = 41, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 41, label = '(b)', size = 6)+
+  annotate('text', x = 3, y = 41, label = '(ab)', size = 6)+
+  annotate('text', x = 4, y = 41, label = '(a)', size = 6)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
@@ -54,10 +55,10 @@ mu_pod<-df_bmassc %>%
   geom_errorbar(aes(ymin=mu_pod-SE_pod, ymax=mu_pod+SE_pod),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 61, label = '(a)', size = 8)+
-  annotate('text', x = 2, y = 61, label = '(a)', size = 8)+
-  annotate('text', x = 3, y = 61, label = '(a)', size = 8)+
-  annotate('text', x = 4, y = 61, label = '(a)', size = 8)+
+  annotate('text', x = 1, y = 61, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 61, label = '(a)', size = 6)+
+  annotate('text', x = 3, y = 61, label = '(a)', size = 6)+
+  annotate('text', x = 4, y = 61, label = '(a)', size = 6)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
@@ -73,10 +74,10 @@ mu_seednum<-df_bmassc %>%
   geom_errorbar(aes(ymin=mu_seednum-SE_seednum, ymax=mu_seednum+SE_seednum),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 115, label = '(ab)', size = 8)+
-  annotate('text', x = 2, y = 115, label = '(ab)', size = 8)+
-  annotate('text', x = 3, y = 115, label = '(a)', size = 8)+
-  annotate('text', x = 4, y = 115, label = '(b)', size = 8)+
+  annotate('text', x = 1, y = 115, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 115, label = '(a)', size = 6)+
+  annotate('text', x = 3, y = 115, label = '(a)', size = 6)+
+  annotate('text', x = 4, y = 115, label = '(a)', size = 6)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
@@ -91,10 +92,10 @@ mu_seedwei<-df_bmassc %>%
   geom_errorbar(aes(ymin=mu_seedwei-SE_seedwei, ymax=mu_seedwei+SE_seedwei),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 14, label = '(ab)', size = 8)+
-  annotate('text', x = 2, y = 14, label = '(a)', size = 8)+
-  annotate('text', x = 3, y = 14, label = '(b)', size = 8)+
-  annotate('text', x = 4, y = 14, label = '(a)', size = 8)+
+  annotate('text', x = 1, y = 14, label = '(ab)', size = 6)+
+  annotate('text', x = 2, y = 14, label = '(a)', size = 6)+
+  annotate('text', x = 3, y = 14, label = '(b)', size = 6)+
+  annotate('text', x = 4, y = 14, label = '(b)', size = 6)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
@@ -109,10 +110,10 @@ mu_BGB<-df_bmassc %>%
   geom_errorbar(aes(ymin=mu_BGB-SE_BGB, ymax=mu_BGB+SE_BGB),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 9, label = '(ab)', size = 8)+
-  annotate('text', x = 2, y = 9, label = '(a)', size = 8)+
-  annotate('text', x = 3, y = 9, label = '(ab)', size = 8)+
-  annotate('text', x = 4, y = 9, label = '(b)', size = 8)+
+  annotate('text', x = 1, y = 9, label = '(ab)', size = 6)+
+  annotate('text', x = 2, y = 9, label = '(ab)', size = 6)+
+  annotate('text', x = 3, y = 9, label = '(a)', size = 6)+
+  annotate('text', x = 4, y = 9, label = '(b)', size = 6)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
