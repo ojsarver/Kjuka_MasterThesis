@@ -240,7 +240,7 @@ summary(rpaovv1 <- lme(value~Vegetative_stage*Treatment,
                        correlation=corAR1(form=~Vegetative_stage|Plant_ID),
                        control=lmeControl(returnObject=T)))
 
-Anova(rpaovv1, type=3)
+anova(rpaovv1)
 lsmeans(rpaovv1, pairwise~Treatment, adjust='tukey')
 
 #vegetative summer after beetle
