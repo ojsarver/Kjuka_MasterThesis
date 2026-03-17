@@ -25,9 +25,6 @@ group_by(Treatment) %>%
             mu_adult=mean(Adults),
             SE_adult=sd(Adults,na.rm=T)/sqrt(length(Adults)))
 
-df_eggc$Treatment[df_eggc$Treatment == "C"] = "Control"
-df_eggc$Treatment[df_eggc$Treatment == "MP"] = "Microplastic"
-
 # plots -------------------------------------------------------------------
 
 
@@ -39,24 +36,13 @@ mu_egg<-df_egglarc %>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_egg-SE_egg,ymax=mu_egg+SE_egg),
                 width=0.2)+
+  annotate('text', x = 1, y = 58, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 58, label = '(b)', size = 6)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
   labs(x = "",
        y = "Average Number of Eggs in Each Mass")
-
-#total eggs ignore
-
-total_egg<-df_eggc %>%
-  ggplot(aes(x=Treatment,
-             y=total_egg,
-             fill=Treatment))+
-  geom_bar(stat="identity")+
-  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
-  theme_bw()+
-  theme(legend.position = "none")+
-  labs(x = "",
-       y = "Total Number of Eggs Laid")
 
 #avg # of egg masses
 mu_mass<-df_egglarc %>%
@@ -66,36 +52,13 @@ mu_mass<-df_egglarc %>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_mass-SE_mass,ymax=mu_mass+SE_mass),
                 width=0.2)+
+  annotate('text', x = 1, y = 2, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 2, label = '(b)', size = 6)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
   labs(x = "",
        y = "Average Number of Egg Masses Laid")
-
-#proportion of eggs that successfully hatched
-
-prop_hatched<-df_egglarc %>%
-  ggplot(aes(x=Treatment,
-             y=prop_hatched,
-             fill=Treatment))+
-  geom_bar(stat="identity")+
-  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
-  theme_bw()+
-  theme(legend.position = "none")+
-  labs(x = "",
-       y = "Proportion of Eggs that Hatched")
-
-#prop that became adults from eggs laid
-prop_adults<-df_egglar%>%
-  ggplot(aes(x=Treatment,
-             y=prop_adult,
-             fill=Treatment))+
-  geom_bar(stat="identity")+
-  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
-  theme_bw()+
-  theme(legend.position = "none")+
-  labs(x = "",
-       y = "Proportion of Eggs that Became Adults")
 
 #avg adults
 mu_adults<-df_egglarc%>%
@@ -105,6 +68,8 @@ mu_adults<-df_egglarc%>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_adult-SE_adult,ymax=mu_adult+SE_adult),
                 width=0.2)+
+  annotate('text', x = 1, y = 10, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 10, label = '(b)', size = 6)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
@@ -120,21 +85,19 @@ mu_hat<-df_egglarc%>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_hat-SE_hat,ymax=mu_hat+SE_hat),
                 width=0.2)+
+  annotate('text', x = 1, y = 27, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 27, label = '(b)', size = 6)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
   labs(x = "",
        y = "Average Number of Eggs that Hatched")
 
-#add error bars? and format graphs
-
-pushViewport(viewport(layout=grid.layout(3,2)))
+pushViewport(viewport(layout=grid.layout(2,2)))
 print(mu_egg,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
 print(mu_mass,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
 print(mu_hat,vp=viewport(layout.pos.row=2,layout.pos.col = 1))
 print(mu_adults,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
-print(prop_hatched,vp=viewport(layout.pos.row=3,layout.pos.col = 1))
-print(prop_adults,vp=viewport(layout.pos.row=3,layout.pos.col = 2))
 
 #stats for eggs and larvae
 

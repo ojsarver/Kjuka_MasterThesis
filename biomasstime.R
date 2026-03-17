@@ -1,6 +1,10 @@
 pacman::p_load(tidyverse,
                patchwork,
-               here)
+               here,
+               car,
+               emmeans,
+               nlme,
+               grid)
 
 #create data frames
 
@@ -21,33 +25,41 @@ df_bmassc<-df_bmass%>%
             mu_nod = mean(Nodule_num,na.rm=T),
             SE_nod=sd(Nodule_num,na.rm=T)/sqrt(length(Nodule_num)))
 
-
+df_bmassc$B_T<-paste(df_bmassc$Treatment,df_bmassc$Beetle)
 
 #plots
 
 mu_AGB<-df_bmassc %>%
-  ggplot(aes(x=Treatment,
+  ggplot(aes(x=B_T,
              y=mu_AGB,
-             fill=Beetle))+
+             fill=B_T))+
   geom_bar(stat="identity",position = "dodge")+
   geom_errorbar(aes(ymin=mu_AGB-SE_AGB, ymax=mu_AGB+SE_AGB),
                 width=.2,
                 position = position_dodge(.9))+
-  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  annotate('text', x = 1, y = 41, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 41, label = '(b)', size = 6)+
+  annotate('text', x = 3, y = 41, label = '(ab)', size = 6)+
+  annotate('text', x = 4, y = 41, label = '(a)', size = 6)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
   labs(x = "",
        y = "Average Aboveground Biomass")
 
 mu_pod<-df_bmassc %>%
-  ggplot(aes(x=Treatment,
+  ggplot(aes(x=B_T,
              y=mu_pod,
-             fill=Beetle))+
+             fill=B_T))+
   geom_bar(stat="identity",position = "dodge")+
   geom_errorbar(aes(ymin=mu_pod-SE_pod, ymax=mu_pod+SE_pod),
                 width=.2,
                 position = position_dodge(.9))+
-  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  annotate('text', x = 1, y = 61, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 61, label = '(a)', size = 6)+
+  annotate('text', x = 3, y = 61, label = '(a)', size = 6)+
+  annotate('text', x = 4, y = 61, label = '(a)', size = 6)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
   labs(x = "",
@@ -55,51 +67,58 @@ mu_pod<-df_bmassc %>%
 
 
 mu_seednum<-df_bmassc %>%
-  ggplot(aes(x=Treatment,
+  ggplot(aes(x=B_T,
              y=mu_seednum,
-             fill=Beetle))+
+             fill=B_T))+
   geom_bar(stat="identity",position = "dodge")+
   geom_errorbar(aes(ymin=mu_seednum-SE_seednum, ymax=mu_seednum+SE_seednum),
                 width=.2,
                 position = position_dodge(.9))+
-  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  annotate('text', x = 1, y = 115, label = '(a)', size = 6)+
+  annotate('text', x = 2, y = 115, label = '(a)', size = 6)+
+  annotate('text', x = 3, y = 115, label = '(a)', size = 6)+
+  annotate('text', x = 4, y = 115, label = '(a)', size = 6)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
   labs(x = "",
        y = "Average Number of Seeds")
 
 mu_seedwei<-df_bmassc %>%
-  ggplot(aes(x=Treatment,
+  ggplot(aes(x=B_T,
              y=mu_seedwei,
-             fill=Beetle))+
+             fill=B_T))+
   geom_bar(stat="identity",position = "dodge")+
   geom_errorbar(aes(ymin=mu_seedwei-SE_seedwei, ymax=mu_seedwei+SE_seedwei),
                 width=.2,
                 position = position_dodge(.9))+
-  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  annotate('text', x = 1, y = 14, label = '(ab)', size = 6)+
+  annotate('text', x = 2, y = 14, label = '(a)', size = 6)+
+  annotate('text', x = 3, y = 14, label = '(b)', size = 6)+
+  annotate('text', x = 4, y = 14, label = '(b)', size = 6)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
   labs(x = "",
        y = "Average Weight of Seeds")
 
 mu_BGB<-df_bmassc %>%
-  ggplot(aes(x=Treatment,
+  ggplot(aes(x=B_T,
              y=mu_BGB,
-             fill=Beetle))+
+             fill=B_T))+
   geom_bar(stat="identity",position = "dodge")+
   geom_errorbar(aes(ymin=mu_BGB-SE_BGB, ymax=mu_BGB+SE_BGB),
                 width=.2,
                 position = position_dodge(.9))+
-  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
+  annotate('text', x = 1, y = 9, label = '(ab)', size = 6)+
+  annotate('text', x = 2, y = 9, label = '(ab)', size = 6)+
+  annotate('text', x = 3, y = 9, label = '(a)', size = 6)+
+  annotate('text', x = 4, y = 9, label = '(b)', size = 6)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
   labs(x = "",
        y = "Average Belowground Biomass")
-
-mu_nod<-df_bmassc %>%
-  ggplot(aes(x=Treatment,
-             y=mu_nod))+
-  geom_bar(stat="identity",position = "dodge")
 
 pushViewport(viewport(layout=grid.layout(3,2)))
 print(mu_AGB,vp=viewport(layout.pos.row=1,layout.pos.col = 1))

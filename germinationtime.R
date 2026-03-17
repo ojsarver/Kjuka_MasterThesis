@@ -68,6 +68,8 @@ vp1<-df_spmu %>%
   geom_errorbar(aes(ymin=mu_l-(sd_l/sqrt(N_l)), 
                     ymax=mu_l+(sd_l/sqrt(N_l)), 
                     width=0.2))+
+  annotate('text', x = 1, y = 21, label = '(a)', size = 8)+
+  annotate('text', x = 2, y = 21, label = '(b)', size = 8)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
@@ -81,6 +83,8 @@ vp2<-df_sumu %>%
   geom_errorbar(aes(ymin=mu_l-(sd_l/sqrt(N_l)), 
                     ymax=mu_l+(sd_l/sqrt(N_l)), 
                     width=0.2))+
+  annotate('text', x = 1, y = 4, label = '(a)', size = 8)+
+  annotate('text', x = 2, y = 4, label = '(a)', size = 8)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
@@ -94,6 +98,8 @@ vp3<-df_famu %>%
   geom_errorbar(aes(ymin=mu_l-(sd_l/sqrt(N_l)), 
                     ymax=mu_l+(sd_l/sqrt(N_l)), 
                     width=0.2))+
+  annotate('text', x = 1, y = 5, label = '(a)', size = 8)+
+  annotate('text', x = 2, y = 5, label = '(b)', size = 8)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none")+
