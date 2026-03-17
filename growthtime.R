@@ -4,7 +4,9 @@ pacman::p_load(tidyverse,
                car,
                emmeans,
                nlme,
-               grid)
+               grid,
+               ggplot2,
+               ggbreak)
 
 df_surepr<-read_csv(here("su25growr1.csv"))
 df_suvege<-read_csv(here("su25Vgrow1.csv"))
@@ -12,7 +14,7 @@ df_farepr<-read_csv(here("fa25repr1.csv"))
 df_favege<-read_csv(here("fa25veggrow2.csv"))
 # Tidy data frames --------------------------------------------------------
 
-#summer vegetative data frame
+#summer vegetative - prep
 
 df_suvege2<-df_suvege%>%
   pivot_longer(cols=V_1:V_17,
@@ -26,19 +28,36 @@ df_suvege2<-df_suvege%>%
 df_suvege2<-df_suvege2%>%
   mutate(Vegetative_stage=as.numeric(Vegetative_stage))
 
-df_subb<-subset(df_suvege2,Vegetative_stage <=10)
-df_suab<-subset(df_suvege2,Vegetative_stage >10)
-
 df_suvege2$B_T<-paste(df_suvege2$Treatment,df_suvege2$Beetle)
 
-df_suvege3<-df_suvege2%>%
+df_suveAVG<-df_suvege2%>%
   group_by(B_T,Vegetative_stage)%>%
   summarize(mu_V=mean(value,na.rm=T),
             SE_V=sd(value,na.rm=T)/sqrt(length(value)))%>%
   ungroup()
 
-#fall vegetative data frame
+#Split into before beetle addition
 
+df_subbp<-subset(df_suvege2,Vegetative_stage <=10)
+df_subbl<-subset(df_suveAVG,Vegetative_stage <=10)
+
+#split into after beetle addition
+df_suabp<-subset(df_suvege2,Vegetative_stage >10)
+df_suabl<-subset(df_suveAVG,Vegetative_stage >10)
+
+#summer combo vegetative and reproductive after beetle addition
+
+df_surepr22 <- rename(df_surepr2, Vegetative_stage = Reproductive_stage)
+bindeer <- rbind(df_suabp,df_surepr22) %>%
+  mutate(groups = ifelse(Vegetative_stage < 7, "Reproductive", "Vegetative"))
+
+df_surepr33 <- rename(df_surepr3, Vegetative_stage = Reproductive_stage,
+                      mu_V = mu_R,
+                      SE_V= SE_R)
+bindeer2 <- rbind(df_suabl,df_surepr33) %>% 
+  mutate(groups = ifelse(Vegetative_stage < 7, "Reproductive", "Vegetative"))
+
+#fall vegetative data frame
 
 df_favege2<-df_favege%>%
   pivot_longer(cols=V_1:V_18,
@@ -54,11 +73,20 @@ df_favege2<-df_favege2%>%
 
 df_favege2$B_T<-paste(df_favege2$Treatment,df_favege2$Beetles)
 
-df_favege3<-df_favege2%>%
+df_faveAVG<-df_favege2%>%
   group_by(B_T,Vegetative_stage)%>%
   summarize(mu_V=mean(value,na.rm=T),
             SE_V=sd(value,na.rm=T)/sqrt(length(value)))%>%
   ungroup()
+
+#Split into before beetle addition
+
+df_fabbpv<-subset(df_favege2,Vegetative_stage <=14)
+df_fabblv<-subset(df_faveAVG,Vegetative_stage <=14)
+
+#split into after beetle addition
+df_faabpv<-subset(df_favege2,Vegetative_stage >14)
+df_faablv<-subset(df_faveAVG,Vegetative_stage >14)
 
 #summer reproductive data frame
 
@@ -106,30 +134,49 @@ df_farepr3<-df_farepr2%>%
             SE_R=sd(value,na.rm=T)/sqrt(length(value)))%>%
   ungroup()
 
+df_fabbp<-subset(df_favege2,Vegetative_stage <=14)
+df_fabbl<-subset(df_faveAVG,Vegetative_stage <=14)
 
+#split into after beetle addition
+df_faabp<-subset(df_favege2,Vegetative_stage >14)
+df_faabl<-subset(df_faveAVG,Vegetative_stage >14)
 # plots -------------------------------------------------------------------
 
-#vegetative summer
-ggplot()+
-  geom_line(data=df_suvege3,aes(x=Vegetative_stage,
-                                y=mu_V,
-                                color=B_T))+
-  geom_point(data=df_suvege3,aes(x=Vegetative_stage,
-                                 y=mu_V,
-                                 color=B_T))+
-  geom_point(data=df_suvege2,aes(x=Vegetative_stage,
-                                 y=value,
-                                 color=B_T),alpha=.5)+
-  geom_errorbar(data=df_suvege3, aes(x=Vegetative_stage,
-                                     ymin=mu_V-SE_V,
-                                     ymax=mu_V+SE_V),width=.2)+
+#summer - bb
   scale_color_manual(values = c("indianred1",
                                 "skyblue1",
                                 "orangered4",
-                                "royalblue1"))+
+                                "royalblue1"))
+
+subb<-df_subbl%>%
+  ggplot(aes(x=Vegetative_stage,
+             y=mu_V,
+             color=B_T))+
+  geom_point()+
+  geom_line()+
+  geom_errorbar(aes(ymin=mu_V-SE_V,
+                    ymax=mu_V+SE_V),width=.2)+
+  geom_point(data=df_subbp,aes(x=Vegetative_stage,
+                               y=value,
+                               color=B_T),alpha=.5)+
   theme_bw()+
-  labs(x="Vegetative Stage",
-       y="Weeks To",
+  labs(x="Summer Before Beetle Addition",
+       y="Weeks To To Reach Growth Stage",
+       color="Legend")
+
+#summer ab
+
+suab<-bindeer2 %>% 
+  ggplot(aes(x=Vegetative_stage, y=mu_V, color = B_T))+
+  geom_line()+
+  geom_point(data = bindeer,aes(y=value))+
+  geom_errorbar(data = bindeer2, aes(ymin=mu_V-SE_V,
+                                     ymax=mu_V+SE_V),width=.2)+
+  facet_wrap(~groups, scales = "free_x")+
+  scale_color_manual(values = c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  theme_bw()+
+  labs(x="Summer After Beetle Addition",
+       y="Weeks To Reach Growth Stage",
        color="Legend")
 
 #vegetative fall
