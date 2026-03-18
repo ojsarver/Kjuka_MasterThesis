@@ -10,7 +10,7 @@ pacman::p_load(tidyverse,
 
 df_surepr<-read_csv(here("su25growr1.csv"))
 df_suvege<-read_csv(here("su25Vgrow1.csv"))
-df_farepr<-read_csv(here("fa25repr1.csv"))
+df_farepr<-read_csv(here("fa25repr2.csv"))
 df_favege<-read_csv(here("fa25veggrow2.csv"))
 # Tidy data frames --------------------------------------------------------
 
@@ -30,8 +30,14 @@ df_suvege2<-df_suvege2%>%
 
 df_suvege2$B_T<-paste(df_suvege2$Treatment,df_suvege2$Beetle)
 
-df_suveAVG<-df_suvege2%>%
+df_suveAVGab<-df_suvege2%>%
   group_by(B_T,Vegetative_stage)%>%
+  summarize(mu_V=mean(value,na.rm=T),
+            SE_V=sd(value,na.rm=T)/sqrt(length(value)))%>%
+  ungroup()
+
+df_suveAVGbb<-df_suvege2%>%
+  group_by(Treatment,Vegetative_stage)%>%
   summarize(mu_V=mean(value,na.rm=T),
             SE_V=sd(value,na.rm=T)/sqrt(length(value)))%>%
   ungroup()
@@ -39,23 +45,11 @@ df_suveAVG<-df_suvege2%>%
 #Split into before beetle addition
 
 df_subbp<-subset(df_suvege2,Vegetative_stage <=10)
-df_subbl<-subset(df_suveAVG,Vegetative_stage <=10)
+df_subbl<-subset(df_suveAVGbb,Vegetative_stage <=10)
 
 #split into after beetle addition
 df_suabp<-subset(df_suvege2,Vegetative_stage >10)
-df_suabl<-subset(df_suveAVG,Vegetative_stage >10)
-
-#summer combo vegetative and reproductive after beetle addition
-
-df_surepr22 <- rename(df_surepr2, Vegetative_stage = Reproductive_stage)
-bindeer <- rbind(df_suabp,df_surepr22) %>%
-  mutate(groups = ifelse(Vegetative_stage < 7, "Reproductive", "Vegetative"))
-
-df_surepr33 <- rename(df_surepr3, Vegetative_stage = Reproductive_stage,
-                      mu_V = mu_R,
-                      SE_V= SE_R)
-bindeer2 <- rbind(df_suabl,df_surepr33) %>% 
-  mutate(groups = ifelse(Vegetative_stage < 7, "Reproductive", "Vegetative"))
+df_suabl<-subset(df_suveAVGab,Vegetative_stage >10)
 
 #fall vegetative data frame
 
@@ -71,10 +65,16 @@ df_favege2<-df_favege%>%
 df_favege2<-df_favege2%>%
   mutate(Vegetative_stage=as.numeric(Vegetative_stage))
 
-df_favege2$B_T<-paste(df_favege2$Treatment,df_favege2$Beetles)
+df_favege2$B_T<-paste(df_favege2$Treatment,df_favege2$Beetle)
 
-df_faveAVG<-df_favege2%>%
+df_faveAVGab<-df_favege2%>%
   group_by(B_T,Vegetative_stage)%>%
+  summarize(mu_V=mean(value,na.rm=T),
+            SE_V=sd(value,na.rm=T)/sqrt(length(value)))%>%
+  ungroup()
+
+df_faveAVGbb<-df_favege2%>%
+  group_by(Treatment,Vegetative_stage)%>%
   summarize(mu_V=mean(value,na.rm=T),
             SE_V=sd(value,na.rm=T)/sqrt(length(value)))%>%
   ungroup()
@@ -82,11 +82,11 @@ df_faveAVG<-df_favege2%>%
 #Split into before beetle addition
 
 df_fabbpv<-subset(df_favege2,Vegetative_stage <=14)
-df_fabblv<-subset(df_faveAVG,Vegetative_stage <=14)
+df_fabblv<-subset(df_faveAVGbb,Vegetative_stage <=14)
 
 #split into after beetle addition
 df_faabpv<-subset(df_favege2,Vegetative_stage >14)
-df_faablv<-subset(df_faveAVG,Vegetative_stage >14)
+df_faablv<-subset(df_faveAVGab,Vegetative_stage >14)
 
 #summer reproductive data frame
 
@@ -127,198 +127,247 @@ df_farepr2<-df_farepr2%>%
 
 df_farepr2$B_T<-paste(df_farepr2$Treatment,df_farepr2$Beetle)
 
-df_farepr3<-df_farepr2%>%
+df_farepr3ab<-df_farepr2%>%
   mutate(Reproductive_stage=as.numeric(Reproductive_stage))%>%
   group_by(B_T,Reproductive_stage)%>%
   summarize(mu_R=mean(value),
             SE_R=sd(value,na.rm=T)/sqrt(length(value)))%>%
   ungroup()
 
-df_fabbp<-subset(df_favege2,Vegetative_stage <=14)
-df_fabbl<-subset(df_faveAVG,Vegetative_stage <=14)
+df_farepr3bb<-df_farepr2%>%
+  mutate(Reproductive_stage=as.numeric(Reproductive_stage))%>%
+  group_by(Treatment,Reproductive_stage)%>%
+  summarize(mu_R=mean(value),
+            SE_R=sd(value,na.rm=T)/sqrt(length(value)))%>%
+  ungroup()
+
+df_fabbpr<-subset(df_farepr2,Reproductive_stage <=3)
+df_fabblr<-subset(df_farepr3bb,Reproductive_stage <=3)
 
 #split into after beetle addition
-df_faabp<-subset(df_favege2,Vegetative_stage >14)
-df_faabl<-subset(df_faveAVG,Vegetative_stage >14)
+df_faabpr<-subset(df_farepr2,Reproductive_stage >3)
+df_faablr<-subset(df_farepr3ab,Reproductive_stage >3)
+
+#summer combo vegetative and reproductive after beetle addition
+
+df_surepr22 <- rename(df_surepr2, Vegetative_stage = Reproductive_stage)%>%
+  mutate(Life_stage="Reproductive",
+         Timing="Post Beetle")
+df_suabp22<- df_suabp%>%
+  mutate(Life_stage="Vegetative",
+         Timing="Post Beetle")
+df_subbp22<-df_subbp %>% 
+  mutate(Life_stage="Vegetative",
+         Timing="Pre Beetle")
+bindeer <- rbind(df_suabp22,df_surepr22)
+
+
+df_surepr33 <- rename(df_surepr3, Vegetative_stage = Reproductive_stage,
+                      mu_V=mu_R,
+                      SE_V=SE_R)%>%
+  mutate(Life_stage="Reproductive",
+         Timing="Post Beetle")
+
+df_suabl33<- df_suabl%>%
+  mutate(Life_stage="Vegetative",
+         Timing="Post Beetle")
+df_subbl33<-df_subbl %>% 
+  mutate(Life_stage="Vegetative",
+         Timing="Pre Beetle")
+bindeer2 <- rbind(df_suabl33,df_surepr33)
+
+#fall combo before beetle addition
+
+
+df_fabbpr22<-rename(df_fabbpr, Vegetative_stage = Reproductive_stage) %>% 
+  mutate(Life_stage="Reproductive",
+         Timing="Pre Beetle")
+df_fabbpv22<-df_fabbpv %>% 
+  mutate(Life_stage="Vegetative",
+         Timing="Pre Beetle")
+
+bindeerbbp <- rbind(df_fabbpr22,df_fabbpv22)
+
+df_fabblr22<-rename(df_fabblr, Vegetative_stage = Reproductive_stage,
+                    mu_V=mu_R,
+                    SE_V=SE_R) %>% 
+  mutate(Life_stage="Reproductive",
+         Timing="Pre Beetle") 
+df_fabblv33<-df_fabblv %>% 
+  mutate(Life_stage="Vegetative",
+         Timing="Pre Beetle")
+
+bindeerbbl <- rbind(df_fabblr22,df_fabblv33)
+
+#fall combo after beetle addition
+
+df_faabpr22<- rename(df_faabpr, Vegetative_stage = Reproductive_stage)%>%
+  mutate(Life_stage="Reproductive",
+         Timing="Post Beetle")
+df_faabpv22<- df_faabpv%>%
+  mutate(Life_stage="Vegetative",
+         Timing="Post Beetle")
+
+bindeerabp<-rbind(df_faabpr22,df_faabpv22)
+
+df_faablv33<- df_faablv%>%
+  mutate(Life_stage="Vegetative",
+         Timing="Post Beetle")
+df_faablr22<- rename(df_faablr, Vegetative_stage = Reproductive_stage,
+                     mu_V=mu_R,
+                     SE_V=SE_R)%>%
+  mutate(Life_stage="Reproductive",
+         Timing="Post Beetle")
+
+bindeerabl <- rbind(df_faablr22,df_faablv33)
+
 # plots -------------------------------------------------------------------
 
 #summer - bb
-  scale_color_manual(values = c("indianred1",
-                                "skyblue1",
-                                "orangered4",
-                                "royalblue1"))
 
-subb<-df_subbl%>%
-  ggplot(aes(x=Vegetative_stage,
-             y=mu_V,
-             color=B_T))+
-  geom_point()+
+subeforeb<-df_subbl33 %>% 
+  ggplot(aes(x=Vegetative_stage, y=mu_V, color = Treatment))+
   geom_line()+
+  geom_point()+
+  geom_point(data = df_subbp,aes(y=value))+
   geom_errorbar(aes(ymin=mu_V-SE_V,
                     ymax=mu_V+SE_V),width=.2)+
-  geom_point(data=df_subbp,aes(x=Vegetative_stage,
-                               y=value,
-                               color=B_T),alpha=.5)+
+  facet_wrap(~Life_stage, scales = "free_x")+
+  scale_color_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   labs(x="Summer Before Beetle Addition",
-       y="Weeks To To Reach Growth Stage",
+       y="Weeks To Reach Growth Stage",
        color="Legend")
 
 #summer ab
 
-suab<-bindeer2 %>% 
+suafterb<-bindeer2 %>% 
   ggplot(aes(x=Vegetative_stage, y=mu_V, color = B_T))+
   geom_line()+
+  geom_point()+
   geom_point(data = bindeer,aes(y=value))+
   geom_errorbar(data = bindeer2, aes(ymin=mu_V-SE_V,
                                      ymax=mu_V+SE_V),width=.2)+
-  facet_wrap(~groups, scales = "free_x")+
+  facet_wrap(~Life_stage, scales = "free_x")+
   scale_color_manual(values = c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   labs(x="Summer After Beetle Addition",
        y="Weeks To Reach Growth Stage",
        color="Legend")
 
-#vegetative fall
+#fall bb
 
-ggplot()+
-  geom_line(data=df_favege3,aes(x=Vegetative_stage,
-                                y=mu_V,
-                                color=B_T))+
-  geom_point(data=df_favege3,aes(x=Vegetative_stage,
-                                 y=mu_V,
-                                 color=B_T))+
-  geom_point(data=df_favege2,aes(x=Vegetative_stage,
-                                 y=value,
-                                 color=B_T),alpha=.5)+
-  geom_errorbar(data=df_favege3, aes(x=Vegetative_stage,
-                                     ymin=mu_V-SE_V,
+fabb<-bindeerbbl %>% 
+  ggplot(aes(x=Vegetative_stage, y=mu_V, color = Treatment))+
+  geom_line()+
+  geom_point(data = bindeerbbp,aes(y=value))+
+  geom_errorbar(data = bindeerbbl, aes(ymin=mu_V-SE_V,
                                      ymax=mu_V+SE_V),width=.2)+
-  scale_color_manual(values = c("indianred1",
-                                "skyblue1",
-                                "orangered4",
-                                "royalblue1"))+
+  facet_wrap(~Life_stage, scales = "free_x")+
+  scale_color_manual(values = c("lightcyan1","lightblue3"))+
   theme_bw()+
-  labs(x="Vegetative Stage",
-       y="Days To",
+  labs(x="Fall Before Beetle Addition",
+       y="Weeks To Reach Growth Stage",
        color="Legend")
 
-#reproductive summer 
+#fall ab 
 
-ggplot()+
-  geom_line(data=df_surepr3,aes(x=Reproductive_stage,
-                                y=mu_R,
-                                color=B_T))+
-  geom_point(data=df_surepr3,aes(x=Reproductive_stage,
-                                 y=mu_R,
-                                 color=B_T))+
-  geom_point(data=df_surepr2,aes(x=Reproductive_stage,
-                                 y=value,
-                                 color=B_T),alpha=.5)+
-  geom_errorbar(data=df_surepr3, aes(x=Reproductive_stage,
-                                     ymin=mu_R-SE_R,
-                                     ymax=mu_R+SE_R),width=.2)+
-  scale_color_manual(values = c("indianred1",
-                                "skyblue1",
-                                "orangered4",
-                                "royalblue1"))+
-  labs(x="Reproductive Stage",
-       y="Weeks To",
+faab<-bindeerabl %>% 
+  ggplot(aes(x=Vegetative_stage, y=mu_V, color = B_T))+
+  geom_line()+
+  geom_point(data = bindeerabp,aes(y=value))+
+  geom_errorbar(data = bindeerabl, aes(ymin=mu_V-SE_V,
+                                       ymax=mu_V+SE_V),width=.2)+
+  facet_wrap(~Life_stage, scales = "free_x")+
+  scale_color_manual(values = c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  theme_bw()+
+  labs(x="Fall After Beetle Addition",
+       y="Weeks To Reach Growth Stage",
        color="Legend")
 
-#reproductive fall
-
-ggplot()+
-  geom_line(data=df_farepr3,aes(x=Reproductive_stage,
-                                y=mu_R,
-                                color=B_T))+
-  geom_point(data=df_farepr3,aes(x=Reproductive_stage,
-                                 y=mu_R,
-                                 color=B_T))+
-  geom_point(data=df_farepr2,aes(x=Reproductive_stage,
-                                 y=value,
-                                 color=B_T),alpha=.5)+
-  geom_errorbar(data=df_farepr3, aes(x=Reproductive_stage,
-                                     ymin=mu_R-SE_R,
-                                     ymax=mu_R+SE_R),width=.2)+
-  scale_color_manual(values = c("indianred1",
-                                "skyblue1",
-                                "orangered4",
-                                "royalblue1"))+
-  labs(x="Reproductive Stage",
-       y="Days To",
-       color="Legend")
-
-#idk how to change the order of the growth stages :(
+pushViewport(viewport(layout=grid.layout(2,2)))
+print(subeforeb,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
+print(suafterb,vp=viewport(layout.pos.row=2,layout.pos.col = 1))
+print(fabb,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
+print(faab,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
 
 
 # stats -------------------------------------------------------------------
 
 #repeated measures ANOVA 
-#reproduction summer
 
-summary(rpaovr <- lme(value~Reproductive_stage*Treatment*Beetle,
-                      data=df_surepr2, 
-                      random=~1|Plant_ID,
-                      correlation=corAR1(form=~Reproductive_stage|Plant_ID), #autoregressive structure
-                      control=lmeControl(returnObject=T)))
-
-
-Anova(rpaovr, type=3)
-lsmeans(rpaovr, pairwise~Treatment*Beetle, adjust='tukey')
-
-#reproduction fall
-
-summary(rpaovrf <- lme(value~Reproductive_stage*Treatment*Beetle,
-                       data=df_farepr2, 
-                       random=~1|Plant_ID,
-                       correlation=corAR1(form=~Reproductive_stage|Plant_ID),
-                       control=lmeControl(returnObject=T)))
-
-
-Anova(rpaovrf, type=3)
-lsmeans(rpaovrf, pairwise~Treatment*Beetle, adjust='tukey')
 
 #vegetative summer - before beetle
 
-summary(rpaovv1 <- lme(value~Vegetative_stage*Treatment,
+summary(vsbb <- lme(value~Vegetative_stage*Treatment,
                        data=subset(df_subb,!is.na(df_subb$value)), 
                        random=~1|Plant_ID,
                        correlation=corAR1(form=~Vegetative_stage|Plant_ID),
                        control=lmeControl(returnObject=T)))
 
-anova(rpaovv1)
-lsmeans(rpaovv1, pairwise~Treatment, adjust='tukey')
+anova(vsbb)
+lsmeans(vsbb, pairwise~Treatment, adjust='tukey')
 
 #vegetative summer after beetle
 
-summary(rpaovv2 <- lme(value~Vegetative_stage*Treatment*Beetle,
+summary(vsab <- lme(value~Vegetative_stage*Treatment*Beetle,
                        data=subset(df_suab,!is.na(df_suab$value)), 
                        random=~1|Plant_ID,
                        correlation=corAR1(form=~Vegetative_stage|Plant_ID),
                        control=lmeControl(returnObject=T)))
 
-Anova(rpaovv2, type=3)
-lsmeans(rpaovv2, pairwise~Treatment*Beetle, adjust='tukey')
+Anova(vsab, type=3)
+lsmeans(vsab, pairwise~Treatment*Beetle, adjust='tukey')
 
 #vegetative fall bb
 
-summary(rpaovvf1 <- lme(value~Vegetative_stage*Treatment,
-                        data=subset(df_fabb,!is.na(df_fabb$value)), 
+summary(vfbb <- lme(value~Vegetative_stage*Treatment,
+                        data=subset(df_fabbpv,!is.na(df_fabbpv$value)), 
                         random=~1|Plant_ID,
                         correlation=corAR1(form=~Vegetative_stage|Plant_ID),
                         control=lmeControl(returnObject=T)))
 
-Anova(rpaovvf1, type=3)
-lsmeans(rpaovvf1, pairwise~Treatment, adjust='tukey')
+anova(vfbb)
+lsmeans(vfbb, pairwise~Treatment, adjust='tukey')
 
 #vegetative fall ab
 
-summary(rpaovvf2 <- lme(value~Vegetative_stage*Treatment*Beetle,
+summary(vfab <- lme(value~Vegetative_stage*Treatment*Beetle,
                         data=subset(df_favege2,!is.na(df_favege2$value)), 
                         random=~1|Plant_ID,
                         correlation=corAR1(form=~Vegetative_stage|Plant_ID),
                         control=lmeControl(returnObject=T)))
 
-Anova(rpaovvf2, type=3)
-lsmeans(rpaovvf2, pairwise~Treatment*Beetle, adjust='tukey')
+Anova(vfab, type=3)
+lsmeans(vfab, pairwise~Treatment*Beetle, adjust='tukey')
+
+#reproduction summer (ab)
+
+summary(rsab <- lme(value~Reproductive_stage*Treatment*Beetle,
+                    data=df_surepr2, 
+                    random=~1|Plant_ID,
+                    correlation=corAR1(form=~Reproductive_stage|Plant_ID), #autoregressive structure
+                    control=lmeControl(returnObject=T)))
+Anova(rsab, type=3)
+lsmeans(rsab, pairwise~Treatment*Beetle, adjust='tukey')
+
+#reproduction fall ab
+
+summary(rfab <- lme(value~Reproductive_stage*Treatment*Beetle,
+                    data=df_faabpr,
+                    random=~1|Plant_ID,
+                    correlation=corAR1(form=~Reproductive_stage|Plant_ID),
+                    control=lmeControl(returnObject=T)))
+Anova(rfab, type=3)
+lsmeans(rfab, pairwise~Treatment*Beetle, adjust='tukey')
+
+#reproduction fall bb
+
+summary(rfbb <- lme(value~Reproductive_stage*Treatment,
+                    data=df_fabbpr, 
+                    random=~1|Plant_ID,
+                    correlation=corAR1(form=~Reproductive_stage|Plant_ID),
+                    control=lmeControl(returnObject=T)))
+
+anova(rfbb)
+lsmeans(rpaovrf, pairwise~Treatment*Beetle, adjust='tukey')
