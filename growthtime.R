@@ -233,11 +233,12 @@ subeforeb<-df_subbl33 %>%
   geom_errorbar(aes(ymin=mu_V-SE_V,
                     ymax=mu_V+SE_V),width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
-  scale_color_manual(values = c("lightcyan1", "lightblue3"))+
+  scale_color_manual(values = c("#6ABFD6", "#43527A"))+
   theme_bw()+
+  theme(legend.position ="inside",
+        legend.position.inside = c(.2,.7))+
   labs(x="Summer Before Beetle Addition",
-       y="Weeks To Reach Growth Stage",
-       color="Legend")
+       y="Weeks To Reach Growth Stage")
 
 #summer ab
 
@@ -249,11 +250,13 @@ suafterb<-bindeer2 %>%
   geom_errorbar(data = bindeer2, aes(ymin=mu_V-SE_V,
                                      ymax=mu_V+SE_V),width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
-  scale_color_manual(values = c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  scale_color_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
   theme_bw()+
+  theme(legend.position ="inside",
+        legend.position.inside = c(.2,.45))+
   labs(x="Summer After Beetle Addition",
        y="Weeks To Reach Growth Stage",
-       color="Legend")
+       color="Treatment")
 
 #fall bb
 
@@ -264,11 +267,11 @@ fabb<-bindeerbbl %>%
   geom_errorbar(data = bindeerbbl, aes(ymin=mu_V-SE_V,
                                      ymax=mu_V+SE_V),width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
-  scale_color_manual(values = c("lightcyan1","lightblue3"))+
+  scale_color_manual(values = c("#6ABFD6", "#43527A"))+
   theme_bw()+
+  theme(legend.position = "none")+
   labs(x="Fall Before Beetle Addition",
-       y="Weeks To Reach Growth Stage",
-       color="Legend")
+       y="Weeks To Reach Growth Stage")
 
 #fall ab 
 
@@ -279,11 +282,11 @@ faab<-bindeerabl %>%
   geom_errorbar(data = bindeerabl, aes(ymin=mu_V-SE_V,
                                        ymax=mu_V+SE_V),width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
-  scale_color_manual(values = c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  scale_color_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
   theme_bw()+
+  theme(legend.position = "none")+
   labs(x="Fall After Beetle Addition",
-       y="Weeks To Reach Growth Stage",
-       color="Legend")
+       y="Weeks To Reach Growth Stage")
 
 pushViewport(viewport(layout=grid.layout(2,2)))
 print(subeforeb,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
