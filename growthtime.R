@@ -252,11 +252,9 @@ suafterb<-bindeer2 %>%
   facet_wrap(~Life_stage, scales = "free_x")+
   scale_color_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
   theme_bw()+
-  theme(legend.position ="inside",
-        legend.position.inside = c(.2,.45))+
+  theme(legend.position ="none")+
   labs(x="Summer After Beetle Addition",
-       y="Weeks To Reach Growth Stage",
-       color="Treatment")
+       y="Weeks To Reach Growth Stage")
 
 #fall bb
 
