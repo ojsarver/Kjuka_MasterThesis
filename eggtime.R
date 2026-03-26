@@ -42,7 +42,7 @@ mu_egg<-df_egglarc %>%
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
+        axis.title=element_text(size=18),
         axis.text=element_text(size=15))+
   labs(x = "",
        y = "Average Number of Eggs in Each Mass")
@@ -61,7 +61,7 @@ mu_mass<-df_egglarc %>%
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
+        axis.title=element_text(size=19),
         axis.text=element_text(size=15))+
   labs(x = "",
        y = "Average Number of Egg Masses Laid")
@@ -80,7 +80,7 @@ mu_adults<-df_egglarc%>%
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
+        axis.title=element_text(size=19),
         axis.text=element_text(size=15))+
   labs(x = "",
        y = "Average Number of Adults")
@@ -100,7 +100,7 @@ mu_hat<-df_egglarc%>%
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
+        axis.title=element_text(size=19),
         axis.text=element_text(size=15))+
   labs(x = "",
        y = "Average Number of Eggs that Hatched")
