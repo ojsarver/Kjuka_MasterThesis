@@ -6,7 +6,6 @@ pacman::p_load(tidyverse,
 df_sufungpa<-read_csv(here("fung_presenceabsence.csv"))
 df_fafungpa<-read_csv(here("fa25fung.csv"))
 
-
 # tidy data ---------------------------------------------------------------
 
 #summer
@@ -31,6 +30,7 @@ df_sufpavg<-df_sufpa%>%
   ungroup()
 
 su8<-subset(df_sufpavg,Week==8)
+su8$B_T <- factor(su8$B_T)
 
 #fall
 
@@ -60,48 +60,58 @@ df_fafpavg$B_T<-paste(df_fafpavg$Treatment,df_fafpavg$Beetle)
 
 fa10<-subset(df_fafpavg, Week==10)
 
+fa10$B_T <- factor(fa10$B_T)
+
 # plots -------------------------------------------------------------------
 #summer
 
 sufp<-su8%>%
-  ggplot(aes(x=B_T,
+  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
+                                    "Control, Beetle",
+                                    "Microplastic, No Beetle",
+                                    "Microplastic, Beetle")),
              y=mu_f,
              fill=B_T))+
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_f-SE_f, ymax=mu_f+SE_f,
                 width=0.2))+
-  annotate('text', x = 1, y = 1.1, label = '(a)', size = 8)+
-  annotate('text', x = 2, y = 1.1, label = '(b)', size = 8)+
-  annotate('text', x = 3, y = 1.1, label = '(a)', size = 8)+
-  annotate('text', x = 4, y = 1.1, label = '(b)', size = 8)+
+  annotate('text', x = 1, y = 1.1, label = 'a', size = 8)+
+  annotate('text', x = 2, y = 1.1, label = 'b', size = 8)+
+  annotate('text', x = 3, y = 1.1, label = 'a', size = 8)+
+  annotate('text', x = 4, y = 1.1, label = 'b', size = 8)+
+  annotate('text', x = .75, y = 1.4, label = '(A)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
-  theme(axis.title.x = element_text(size = 15,margin=margin(10,0,0,0)),
-        axis.title.y = element_text(size = 15,margin=margin(0,10,0,0)),
+  theme(axis.title=element_text(size=20),
+        axis.text=element_text(size=12),
         legend.position = "none")+
-  labs(x="Summer Week 8",
+  labs(x="Trophic Interaction Week 8",
        y="Proportion of Plants with Fungal Damage")
 
 
 #fall
 
 fafp<-fa10%>%
-  ggplot(aes(x=B_T,
+  ggplot(aes(x=factor(B_T, levels=c("Control, No Beetle",
+                                    "Control, Beetle",
+                                    "Microplastic, No Beetle",
+                                    "Microplastic, Beetle")),
              y=mu_f,
              fill=B_T))+
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_f-SE_f, ymax=mu_f+SE_f,
                     width=0.2))+
-  annotate('text', x = 1, y = .0225, label = '(a)', size = 8)+
-  annotate('text', x = 2, y = .0225, label = '(a)', size = 8)+
-  annotate('text', x = 3, y = .0225, label = '(a)', size = 8)+
-annotate('text', x = 4, y = .0225, label = '(b)', size = 8)+
+  annotate('text', x = 1, y = .0225, label = 'a', size = 8)+
+  annotate('text', x = 2, y = .0225, label = 'a', size = 8)+
+  annotate('text', x = 3, y = .0225, label = 'b', size = 8)+
+  annotate('text', x = 4, y = .0225, label = 'a', size = 8)+
+  annotate('text', x = .75, y = .03, label = '(B)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
-  theme(axis.title.x = element_text(size = 15,margin=margin(10,0,0,0)),
-         axis.title.y = element_text(size = 15,margin=margin(0,10,0,0)),
+  theme(axis.title=element_text(size=20),
+        axis.text=element_text(size=12),
          legend.position = "none")+
-  labs(x="Fall Week 10",
+  labs(x="Plant Response Week 10",
        y="Average Percentage of Fungal Damage")
 
 pushViewport(viewport(layout=grid.layout(1,2)))

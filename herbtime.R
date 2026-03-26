@@ -79,12 +79,15 @@ su<-su3%>%
   geom_errorbar(aes(ymin=mu-(sd/sqrt(N)), 
                     ymax=mu+(sd/sqrt(N))),
                 width=0.2)+
-  annotate('text', x = 1, y = 30, label = '(a)', size = 8)+
-  annotate('text', x = 2, y = 30, label = '(b)', size = 8)+
+  annotate('text', x = 1, y = 30, label = 'a', size = 8)+
+  annotate('text', x = 2, y = 30, label = 'b', size = 8)+
+  annotate('text', x = .5, y = 31, label = '(A)', size = 10)+
   scale_fill_manual(values=c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(legend.position = "none")+
-  labs(x="Summer Week 3",
+  theme(axis.title=element_text(size=25),
+        axis.text=element_text(size=20),
+        legend.position = "none")+
+  labs(x="Trophic Interaction Week 3",
        y="Average Percent Herbivory")
 
 fa<-fa3%>%
@@ -95,12 +98,15 @@ fa<-fa3%>%
   geom_errorbar(aes(ymin=mu-(sd/sqrt(N)), 
                     ymax=mu+(sd/sqrt(N))),
                 width=0.2)+
-  annotate('text', x = 1, y = 32, label = '(a)', size = 8)+
-  annotate('text', x = 2, y = 32, label = '(b)', size = 8)+
+  annotate('text', x = 1, y = 32, label = 'a', size = 8)+
+  annotate('text', x = 2, y = 32, label = 'b', size = 8)+
+  annotate('text', x = .5, y = 33, label = '(B)', size = 10)+
   scale_fill_manual(values=c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(legend.position = "none")+
-  labs(x="Fall Week 3",
+  theme(axis.title=element_text(size=25),
+        axis.text=element_text(size=20),
+        legend.position = "none")+
+  labs(x="Plant Response Week 3",
        y="")
 
 pushViewport(viewport(layout=grid.layout(1,2)))

@@ -36,11 +36,14 @@ mu_egg<-df_egglarc %>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_egg-SE_egg,ymax=mu_egg+SE_egg),
                 width=0.2)+
-  annotate('text', x = 1, y = 58, label = '(a)', size = 6)+
-  annotate('text', x = 2, y = 58, label = '(b)', size = 6)+
+  annotate('text', x = 1, y = 58, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 58, label = 'b', size = 6)+
+  annotate('text', x = .5, y = 59, label = '(A)', size = 7)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(legend.position = "none")+
+  theme(legend.position = "none",
+        axis.title=element_text(size=20),
+        axis.text=element_text(size=15))+
   labs(x = "",
        y = "Average Number of Eggs in Each Mass")
 
@@ -52,11 +55,14 @@ mu_mass<-df_egglarc %>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_mass-SE_mass,ymax=mu_mass+SE_mass),
                 width=0.2)+
-  annotate('text', x = 1, y = 2, label = '(a)', size = 6)+
-  annotate('text', x = 2, y = 2, label = '(b)', size = 6)+
+  annotate('text', x = 1, y = 2, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 2, label = 'b', size = 6)+
+  annotate('text', x = .5, y = 2, label = '(B)', size = 7)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(legend.position = "none")+
+  theme(legend.position = "none",
+        axis.title=element_text(size=20),
+        axis.text=element_text(size=15))+
   labs(x = "",
        y = "Average Number of Egg Masses Laid")
 
@@ -68,11 +74,14 @@ mu_adults<-df_egglarc%>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_adult-SE_adult,ymax=mu_adult+SE_adult),
                 width=0.2)+
-  annotate('text', x = 1, y = 10, label = '(a)', size = 6)+
-  annotate('text', x = 2, y = 10, label = '(b)', size = 6)+
+  annotate('text', x = 1, y = 10, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 10, label = 'b', size = 6)+
+  annotate('text', x = .5, y = 11, label = '(D)', size = 7)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(legend.position = "none")+
+  theme(legend.position = "none",
+        axis.title=element_text(size=20),
+        axis.text=element_text(size=15))+
   labs(x = "",
        y = "Average Number of Adults")
 
@@ -85,11 +94,14 @@ mu_hat<-df_egglarc%>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_hat-SE_hat,ymax=mu_hat+SE_hat),
                 width=0.2)+
-  annotate('text', x = 1, y = 27, label = '(a)', size = 6)+
-  annotate('text', x = 2, y = 27, label = '(b)', size = 6)+
+  annotate('text', x = 1, y = 27, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 27, label = 'b', size = 6)+
+  annotate('text', x = .5, y = 28, label = '(C)', size = 7)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(legend.position = "none")+
+  theme(legend.position = "none",
+        axis.title=element_text(size=20),
+        axis.text=element_text(size=15))+
   labs(x = "",
        y = "Average Number of Eggs that Hatched")
 

@@ -1,43 +1,43 @@
 ﻿Treatment,Beetle,Plant_ID,Week_1,Week_2,Week_3,Week_4,Week_5,Week_6,Week_7,Week_8,Week_9,Week_10,Week_11,Week_12,Week_13,Week_14
-Control,No Beetle,C-Sb-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,No Beetle,C-Sb-2,0,0,0.05,0.14,0.04,0.02,0.02,0.02,0.02,0.02,0.05,0.04,0.04,0.03
-Control,No Beetle,C-Sb-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,No Beetle,C-Sb-4,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,No Beetle,C-Sb-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,No Beetle,C-Sb-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,No Beetle,C-Sb-7,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,No Beetle,C-Sb-8,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,Beetle,C-MBB-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,Beetle,C-MBB-2,1.36,0.84,0.55,0.41,0.23,0.17,0.08,0.04,0.02,0,0,0,0,0
-Control,Beetle,C-MBB-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,Beetle,C-MBB-4,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,Beetle,C-MBB-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,Beetle,C-MBB-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,Beetle,C-MBB-7,0.36,0.21,0.15,0.07,0.04,0.03,0.02,0.02,0.01,0.01,0,0,0,0
-Control,Beetle,C-MBB-8,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,No Beetle,C-Ex-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,No Beetle,C-Ex-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,No Beetle,C-Ex-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Control,No Beetle,C-Ex-4,1,0.69,0.35,0.41,0.16,0.12,0.11,0.08,0,0,0,0,0,0
-Control,No Beetle,C-Ex-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,No Beetle,MP-Sb-1,0.07,0.07,0.05,0.04,0.04,0.03,0.02,0.02,0.02,0.02,0.01,0.01,0.01,0.01
-Microplastic,No Beetle,MP-Sb-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,No Beetle,MP-Sb-3,0.21,0.23,0.26,0.35,0.35,0.21,0.06,0.06,0.05,0.05,0.05,0.04,0.04,0.04
-Microplastic,No Beetle,MP-Sb-4,0.14,0.12,0.12,0.12,0.04,0.03,0.06,0.06,0.03,0.03,0.03,0.03,0.03,0.02
-Microplastic,No Beetle,MP-Sb-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,No Beetle,MP-Sb-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,No Beetle,MP-Sb-7,0,0,0.12,0.33,0.32,0.15,0.12,0.08,0.03,0.03,0.03,0.03,0.03,0.03
-Microplastic,No Beetle,MP-Sb-8,0,0,0,0,0,0,0,0,0,0.01,0.03,0.04,0.04,0.04
-Microplastic,Beetle,MP-MBB-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,Beetle,MP-MBB-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,Beetle,MP-MBB-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,Beetle,MP-MBB-4,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,Beetle,MP-MBB-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,Beetle,MP-MBB-6,0,0,0,0,0,0,0,0.01,0.01,0.01,0.01,0,0,0
-Microplastic,Beetle,MP-MBB-7,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,Beetle,MP-MBB-8,0.86,0.71,0.5,0.3,0.3,0.19,0.08,0.08,0.03,0.01,0,0,0,0
-Microplastic,No Beetle,MP-Ex-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,No Beetle,MP-Ex-2,0.35,0.29,0.26,0.19,0.19,0.14,0.07,0.06,0.03,0.03,0,0,0,0
-Microplastic,No Beetle,MP-Ex-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Microplastic,No Beetle,MP-Ex-4,0.14,0.08,0.04,0.03,0.03,0.02,0.02,0.02,0.03,0.03,0.03,0.03,0.01,0.01
-Microplastic,No Beetle,MP-Ex-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Sb-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Sb-2,0,0,0.05,0.14,0.04,0.02,0.02,0.02,0.02,0.02,0.05,0.04,0.04,0.03
+"Control,",No Beetle,C-Sb-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Sb-4,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Sb-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Sb-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Sb-7,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Sb-8,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",Beetle,C-MBB-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",Beetle,C-MBB-2,1.36,0.84,0.55,0.41,0.23,0.17,0.08,0.04,0.02,0,0,0,0,0
+"Control,",Beetle,C-MBB-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",Beetle,C-MBB-4,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",Beetle,C-MBB-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",Beetle,C-MBB-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",Beetle,C-MBB-7,0.36,0.21,0.15,0.07,0.04,0.03,0.02,0.02,0.01,0.01,0,0,0,0
+"Control,",Beetle,C-MBB-8,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Ex-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Ex-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Ex-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Control,",No Beetle,C-Ex-4,1,0.69,0.35,0.41,0.16,0.12,0.11,0.08,0,0,0,0,0,0
+"Control,",No Beetle,C-Ex-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",No Beetle,MP-Sb-1,0.07,0.07,0.05,0.04,0.04,0.03,0.02,0.02,0.02,0.02,0.01,0.01,0.01,0.01
+"Microplastic,",No Beetle,MP-Sb-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",No Beetle,MP-Sb-3,0.21,0.23,0.26,0.35,0.35,0.21,0.06,0.06,0.05,0.05,0.05,0.04,0.04,0.04
+"Microplastic,",No Beetle,MP-Sb-4,0.14,0.12,0.12,0.12,0.04,0.03,0.06,0.06,0.03,0.03,0.03,0.03,0.03,0.02
+"Microplastic,",No Beetle,MP-Sb-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",No Beetle,MP-Sb-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",No Beetle,MP-Sb-7,0,0,0.12,0.33,0.32,0.15,0.12,0.08,0.03,0.03,0.03,0.03,0.03,0.03
+"Microplastic,",No Beetle,MP-Sb-8,0,0,0,0,0,0,0,0,0,0.01,0.03,0.04,0.04,0.04
+"Microplastic,",Beetle,MP-MBB-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",Beetle,MP-MBB-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",Beetle,MP-MBB-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",Beetle,MP-MBB-4,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",Beetle,MP-MBB-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",Beetle,MP-MBB-6,0,0,0,0,0,0,0,0.01,0.01,0.01,0.01,0,0,0
+"Microplastic,",Beetle,MP-MBB-7,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",Beetle,MP-MBB-8,0.86,0.71,0.5,0.3,0.3,0.19,0.08,0.08,0.03,0.01,0,0,0,0
+"Microplastic,",No Beetle,MP-Ex-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",No Beetle,MP-Ex-2,0.35,0.29,0.26,0.19,0.19,0.14,0.07,0.06,0.03,0.03,0,0,0,0
+"Microplastic,",No Beetle,MP-Ex-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Microplastic,",No Beetle,MP-Ex-4,0.14,0.08,0.04,0.03,0.03,0.02,0.02,0.02,0.03,0.03,0.03,0.03,0.01,0.01
+"Microplastic,",No Beetle,MP-Ex-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0

@@ -12,6 +12,7 @@ df_surepr<-read_csv(here("su25growr1.csv"))
 df_suvege<-read_csv(here("su25Vgrow1.csv"))
 df_farepr<-read_csv(here("fa25repr2.csv"))
 df_favege<-read_csv(here("fa25veggrow2.csv"))
+
 # Tidy data frames --------------------------------------------------------
 
 #summer vegetative - prep
@@ -227,64 +228,70 @@ bindeerabl <- rbind(df_faablr22,df_faablv33)
 
 subeforeb<-df_subbl33 %>% 
   ggplot(aes(x=Vegetative_stage, y=mu_V, color = Treatment))+
-  geom_line()+
-  geom_point()+
-  geom_point(data = df_subbp,aes(y=value))+
+  geom_line(linewidth =.75)+
+  geom_point(size=2.5)+
   geom_errorbar(aes(ymin=mu_V-SE_V,
-                    ymax=mu_V+SE_V),width=.2)+
+                    ymax=mu_V+SE_V),,width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
+  annotate('text', x = .75, y = 8.2, label = '(A)', size = 8)+
   scale_color_manual(values = c("#6ABFD6", "#43527A"))+
   theme_bw()+
-  theme(legend.position ="inside",
-        legend.position.inside = c(.2,.7))+
-  labs(x="Summer Before Beetle Addition",
+  theme(axis.title=element_text(size=13),
+        legend.position ="none")+
+  labs(x="Trophic Interaction Before Beetle Addition",
        y="Weeks To Reach Growth Stage")
 
 #summer ab
 
 suafterb<-bindeer2 %>% 
   ggplot(aes(x=Vegetative_stage, y=mu_V, color = B_T))+
-  geom_line()+
-  geom_point()+
-  geom_point(data = bindeer,aes(y=value))+
+  geom_line(linewidth =.75)+
+  geom_point(size=2.5)+
   geom_errorbar(data = bindeer2, aes(ymin=mu_V-SE_V,
                                      ymax=mu_V+SE_V),width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
   scale_color_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
   theme_bw()+
-  theme(legend.position ="none")+
-  labs(x="Summer After Beetle Addition",
-       y="Weeks To Reach Growth Stage")
+  theme(legend.key.height = unit(.5, 'cm'),
+        legend.position ="inside",
+        legend.position.inside = c(.17,.81),
+        axis.title=element_text(size=13))+
+  labs(x="Trophic Interaction After Beetle Addition",
+       y="Weeks To Reach Growth Stage",
+       color="Treatment")
 
 #fall bb
 
 fabb<-bindeerbbl %>% 
   ggplot(aes(x=Vegetative_stage, y=mu_V, color = Treatment))+
-  geom_line()+
-  geom_point(data = bindeerbbp,aes(y=value))+
+  geom_line(linewidth =.75)+
+  geom_point(size=2.5)+
   geom_errorbar(data = bindeerbbl, aes(ymin=mu_V-SE_V,
                                      ymax=mu_V+SE_V),width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
   scale_color_manual(values = c("#6ABFD6", "#43527A"))+
   theme_bw()+
-  theme(legend.position = "none")+
-  labs(x="Fall Before Beetle Addition",
-       y="Weeks To Reach Growth Stage")
+  theme(legend.position ="none",
+        axis.title=element_text(size=13))+
+  labs(x="Plant Response Before Beetle Addition",
+       y="")
 
 #fall ab 
 
 faab<-bindeerabl %>% 
   ggplot(aes(x=Vegetative_stage, y=mu_V, color = B_T))+
-  geom_line()+
-  geom_point(data = bindeerabp,aes(y=value))+
+  geom_line(linewidth =.75)+
+  geom_point(size=2.5)+
   geom_errorbar(data = bindeerabl, aes(ymin=mu_V-SE_V,
                                        ymax=mu_V+SE_V),width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
   scale_color_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
   theme_bw()+
-  theme(legend.position = "none")+
-  labs(x="Fall After Beetle Addition",
-       y="Weeks To Reach Growth Stage")
+  theme(legend.position ="none",
+        axis.title=element_text(size=13))+
+  labs(x="Plant Response After Beetle Addition",
+       y="",
+       color="Treatment")
 
 pushViewport(viewport(layout=grid.layout(2,2)))
 print(subeforeb,vp=viewport(layout.pos.row=1,layout.pos.col = 1))

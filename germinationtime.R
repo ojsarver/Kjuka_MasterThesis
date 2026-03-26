@@ -68,12 +68,15 @@ vp1<-df_spmu %>%
   geom_errorbar(aes(ymin=mu_l-(sd_l/sqrt(N_l)), 
                     ymax=mu_l+(sd_l/sqrt(N_l)), 
                     width=0.2))+
-  annotate('text', x = 1, y = 21, label = '(a)', size = 8)+
-  annotate('text', x = 2, y = 21, label = '(b)', size = 8)+
+  annotate('text', x = 1, y = 21, label = 'a', size = 8)+
+  annotate('text', x = 2, y = 21, label = 'b', size = 8)+
+  annotate('text', x = .75, y = 24, label = '(A)', size = 9)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(legend.position = "none")+
-  labs(x = "Spring 2025",
+  theme(axis.title=element_text(size=20),
+        axis.text=element_text(size=12),
+        legend.position = "none")+
+  labs(x = "Germination",
        y = "MGT in Days")
 
 vp2<-df_sumu %>%
@@ -83,12 +86,15 @@ vp2<-df_sumu %>%
   geom_errorbar(aes(ymin=mu_l-(sd_l/sqrt(N_l)), 
                     ymax=mu_l+(sd_l/sqrt(N_l)), 
                     width=0.2))+
-  annotate('text', x = 1, y = 4, label = '(a)', size = 8)+
-  annotate('text', x = 2, y = 4, label = '(a)', size = 8)+
+  annotate('text', x = 1, y = 4, label = 'a', size = 8)+
+  annotate('text', x = 2, y = 4, label = 'a', size = 8)+
+  annotate('text', x = .75, y = 4.5, label = '(B)', size = 9)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(legend.position = "none")+
-  labs(x = "Summer 2025",
+  theme(axis.title=element_text(size=20),
+        axis.text=element_text(size=12),
+        legend.position = "none")+
+  labs(x = "Trophic Interaction",
        y = "")
 
 vp3<-df_famu %>%
@@ -98,12 +104,15 @@ vp3<-df_famu %>%
   geom_errorbar(aes(ymin=mu_l-(sd_l/sqrt(N_l)), 
                     ymax=mu_l+(sd_l/sqrt(N_l)), 
                     width=0.2))+
-  annotate('text', x = 1, y = 5, label = '(a)', size = 8)+
-  annotate('text', x = 2, y = 5, label = '(b)', size = 8)+
+  annotate('text', x = 1, y = 5, label = 'a', size = 8)+
+  annotate('text', x = 2, y = 5, label = 'b', size = 8)+
+  annotate('text', x = .75, y = 5.5, label = '(C)', size = 9)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(legend.position = "none")+
-  labs(x = "Fall 2025",
+  theme(axis.title=element_text(size=20),
+        axis.text=element_text(size=12),
+        legend.position = "none")+
+  labs(x = "Plant Response",
        y = "")
 
 pushViewport(viewport(layout=grid.layout(1,3)))
