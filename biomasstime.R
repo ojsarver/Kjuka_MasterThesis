@@ -43,8 +43,11 @@ df_bmassfac<-df_bmassfa%>%
 
 df_bmassfac$B_T<-paste(df_bmassfac$Treatment,df_bmassfac$Beetle)
 
-#plots
+
 #fix all letters
+
+
+# biomass plot ------------------------------------------------------------
 
 mu_AGBsu<-df_bmasssuc %>%
   ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
@@ -94,150 +97,6 @@ mu_AGBfa<-df_bmassfac %>%
   labs(x = "",
        y = "")
 
-mu_podsu<-df_bmasssuc %>%
-  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
-                                   "Control, Beetle",
-                                   "Microplastic, No Beetle",
-                                   "Microplastic, Beetle")),
-             y=mu_pod,
-             fill=B_T))+
-  geom_bar(stat="identity",position = "dodge")+
-  geom_errorbar(aes(ymin=mu_pod-SE_pod, ymax=mu_pod+SE_pod),
-                width=.2,
-                position = position_dodge(.9))+
-  annotate('text', x = 1, y = 61, label = 'a', size = 6)+
-  annotate('text', x = 2, y = 61, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 61, label = 'a', size = 6)+
-  annotate('text', x = 4, y = 61, label = 'a', size = 6)+
-  annotate('text', x = .75, y = 65, label = '(C)', size = 9)+
-  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
-  theme_bw()+
-  theme(legend.position = "none",
-        axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
-  labs(x = "",
-       y = "Average Number of Pods")
-
-mu_podfa<-df_bmassfac %>%
-  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
-                                   "Control, Beetle",
-                                   "Microplastic, No Beetle",
-                                   "Microplastic, Beetle")),
-             y=mu_pod,
-             fill=B_T))+
-  geom_bar(stat="identity",position = "dodge")+
-  geom_errorbar(aes(ymin=mu_pod-SE_pod, ymax=mu_pod+SE_pod),
-                width=.2,
-                position = position_dodge(.9))+
-  annotate('text', x = 1, y = 61, label = 'a', size = 6)+
-  annotate('text', x = 2, y = 61, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 61, label = 'a', size = 6)+
-  annotate('text', x = 4, y = 61, label = 'a', size = 6)+
-  annotate('text', x = .75, y = 65, label = '(D)', size = 9)+
-  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
-  theme_bw()+
-  theme(legend.position = "none",
-        axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
-  labs(x = "",
-       y = "")
-
-mu_seednumsu<-df_bmasssuc %>%
-  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
-                                   "Control, Beetle",
-                                   "Microplastic, No Beetle",
-                                   "Microplastic, Beetle")),
-             y=mu_seednum,
-             fill=B_T))+
-  geom_bar(stat="identity",position = "dodge")+
-  geom_errorbar(aes(ymin=mu_seednum-SE_seednum, ymax=mu_seednum+SE_seednum),
-                width=.2,
-                position = position_dodge(.9))+
-  annotate('text', x = 1, y = 115, label = 'a', size = 6)+
-  annotate('text', x = 2, y = 115, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 115, label = 'a', size = 6)+
-  annotate('text', x = 4, y = 115, label = 'a', size = 6)+
-  annotate('text', x = .75, y = 119, label = '(E)', size = 9)+
-  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
-  theme_bw()+
-  theme(legend.position = "none",
-        axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
-  labs(x = "",
-       y = "Average Number of Seeds")
-
-mu_seednumfa<-df_bmassfac %>%
-  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
-                                   "Control, Beetle",
-                                   "Microplastic, No Beetle",
-                                   "Microplastic, Beetle")),
-             y=mu_seednum,
-             fill=B_T))+
-  geom_bar(stat="identity",position = "dodge")+
-  geom_errorbar(aes(ymin=mu_seednum-SE_seednum, ymax=mu_seednum+SE_seednum),
-                width=.2,
-                position = position_dodge(.9))+
-  annotate('text', x = 1, y = 115, label = 'a', size = 6)+
-  annotate('text', x = 2, y = 115, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 115, label = 'a', size = 6)+
-  annotate('text', x = 4, y = 115, label = 'a', size = 6)+
-  annotate('text', x = .75, y = 119, label = '(F)', size = 9)+
-  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
-  theme_bw()+
-  theme(legend.position = "none",
-        axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
-  labs(x = "",
-       y = "")
-
-mu_seedweisu<-df_bmasssuc %>%
-  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
-                                   "Control, Beetle",
-                                   "Microplastic, No Beetle",
-                                   "Microplastic, Beetle")),
-             y=mu_seedwei,
-             fill=B_T))+
-  geom_bar(stat="identity",position = "dodge")+
-  geom_errorbar(aes(ymin=mu_seedwei-SE_seedwei, ymax=mu_seedwei+SE_seedwei),
-                width=.2,
-                position = position_dodge(.9))+
-  annotate('text', x = 1, y = 14, label = 'ab', size = 6)+
-  annotate('text', x = 2, y = 14, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 14, label = 'b', size = 6)+
-  annotate('text', x = 4, y = 14, label = 'b', size = 6)+
-  annotate('text', x = .75, y = 18, label = '(G)', size = 9)+
-  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
-  theme_bw()+
-  theme(legend.position = "none",
-        axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
-  labs(x = "",
-       y = "Average Weight of Seeds")
-
-mu_seedweifa<-df_bmassfac %>%
-  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
-                                   "Control, Beetle",
-                                   "Microplastic, No Beetle",
-                                   "Microplastic, Beetle")),
-             y=mu_seedwei,
-             fill=B_T))+
-  geom_bar(stat="identity",position = "dodge")+
-  geom_errorbar(aes(ymin=mu_seedwei-SE_seedwei, ymax=mu_seedwei+SE_seedwei),
-                width=.2,
-                position = position_dodge(.9))+
-  annotate('text', x = 1, y = 14, label = 'ab', size = 6)+
-  annotate('text', x = 2, y = 14, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 14, label = 'b', size = 6)+
-  annotate('text', x = 4, y = 14, label = 'b', size = 6)+
-  annotate('text', x = .75, y = 18, label = '(H)', size = 9)+
-  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
-  theme_bw()+
-  theme(legend.position = "none",
-        axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
-  labs(x = "",
-       y = "")
-
 mu_BGBsu<-df_bmasssuc %>%
   ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
                                    "Control, Beetle",
@@ -253,7 +112,7 @@ mu_BGBsu<-df_bmasssuc %>%
   annotate('text', x = 2, y = 9, label = 'ab', size = 6)+
   annotate('text', x = 3, y = 9, label = 'a', size = 6)+
   annotate('text', x = 4, y = 9, label = 'b', size = 6)+
-  annotate('text', x = .75, y = 13, label = '(I)', size = 9)+
+  annotate('text', x = .75, y = 13, label = '(C)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
@@ -277,7 +136,7 @@ mu_BGBfa<-df_bmassfac %>%
   annotate('text', x = 2, y = 9, label = 'ab', size = 6)+
   annotate('text', x = 3, y = 9, label = 'a', size = 6)+
   annotate('text', x = 4, y = 9, label = 'b', size = 6)+
-  annotate('text', x = .75, y = 13, label = '(J)', size = 9)+
+  annotate('text', x = .75, y = 13, label = '(D)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
@@ -286,17 +145,168 @@ mu_BGBfa<-df_bmassfac %>%
   labs(x = "",
        y = "")
 
-pushViewport(viewport(layout=grid.layout(5,2)))
+pushViewport(viewport(layout=grid.layout(2,2)))
 print(mu_AGBsu,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
 print(mu_AGBfa,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
 print(mu_BGBsu,vp=viewport(layout.pos.row=2,layout.pos.col = 1))
 print(mu_BGBfa,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
-print(mu_podsu,vp=viewport(layout.pos.row=3,layout.pos.col = 1))
-print(mu_podfa,vp=viewport(layout.pos.row=3,layout.pos.col = 2))
-print(mu_seedweisu,vp=viewport(layout.pos.row=4,layout.pos.col = 1))
-print(mu_seedweifa,vp=viewport(layout.pos.row=4,layout.pos.col = 2))
-print(mu_seednumsu,vp=viewport(layout.pos.row=5,layout.pos.col = 1))
-print(mu_seednumfa,vp=viewport(layout.pos.row=5,layout.pos.col = 2))
+
+# yield plots -------------------------------------------------------------
+
+
+mu_podsu<-df_bmasssuc %>%
+  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
+                                   "Control, Beetle",
+                                   "Microplastic, No Beetle",
+                                   "Microplastic, Beetle")),
+             y=mu_pod,
+             fill=B_T))+
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_pod-SE_pod, ymax=mu_pod+SE_pod),
+                width=.2,
+                position = position_dodge(.9))+
+  annotate('text', x = 1, y = 61, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 61, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 61, label = 'a', size = 6)+
+  annotate('text', x = 4, y = 61, label = 'a', size = 6)+
+  annotate('text', x = .75, y = 65, label = '(A)', size = 9)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none",
+        axis.title=element_text(size=20),
+        axis.text=element_text(size=15))+
+  labs(x = "",
+       y = "Average Number of Pods")
+
+mu_podfa<-df_bmassfac %>%
+  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
+                                   "Control, Beetle",
+                                   "Microplastic, No Beetle",
+                                   "Microplastic, Beetle")),
+             y=mu_pod,
+             fill=B_T))+
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_pod-SE_pod, ymax=mu_pod+SE_pod),
+                width=.2,
+                position = position_dodge(.9))+
+  annotate('text', x = 1, y = 61, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 61, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 61, label = 'a', size = 6)+
+  annotate('text', x = 4, y = 61, label = 'a', size = 6)+
+  annotate('text', x = .75, y = 65, label = '(B)', size = 9)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none",
+        axis.title=element_text(size=20),
+        axis.text=element_text(size=15))+
+  labs(x = "",
+       y = "")
+
+mu_seednumsu<-df_bmasssuc %>%
+  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
+                                   "Control, Beetle",
+                                   "Microplastic, No Beetle",
+                                   "Microplastic, Beetle")),
+             y=mu_seednum,
+             fill=B_T))+
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_seednum-SE_seednum, ymax=mu_seednum+SE_seednum),
+                width=.2,
+                position = position_dodge(.9))+
+  annotate('text', x = 1, y = 115, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 115, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 115, label = 'a', size = 6)+
+  annotate('text', x = 4, y = 115, label = 'a', size = 6)+
+  annotate('text', x = .75, y = 119, label = '(C)', size = 9)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none",
+        axis.title=element_text(size=20),
+        axis.text=element_text(size=15))+
+  labs(x = "",
+       y = "Average Number of Seeds")
+
+mu_seednumfa<-df_bmassfac %>%
+  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
+                                   "Control, Beetle",
+                                   "Microplastic, No Beetle",
+                                   "Microplastic, Beetle")),
+             y=mu_seednum,
+             fill=B_T))+
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_seednum-SE_seednum, ymax=mu_seednum+SE_seednum),
+                width=.2,
+                position = position_dodge(.9))+
+  annotate('text', x = 1, y = 115, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 115, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 115, label = 'a', size = 6)+
+  annotate('text', x = 4, y = 115, label = 'a', size = 6)+
+  annotate('text', x = .75, y = 119, label = '(D)', size = 9)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none",
+        axis.title=element_text(size=20),
+        axis.text=element_text(size=15))+
+  labs(x = "",
+       y = "")
+
+mu_seedweisu<-df_bmasssuc %>%
+  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
+                                   "Control, Beetle",
+                                   "Microplastic, No Beetle",
+                                   "Microplastic, Beetle")),
+             y=mu_seedwei,
+             fill=B_T))+
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_seedwei-SE_seedwei, ymax=mu_seedwei+SE_seedwei),
+                width=.2,
+                position = position_dodge(.9))+
+  annotate('text', x = 1, y = 14, label = 'ab', size = 6)+
+  annotate('text', x = 2, y = 14, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 14, label = 'b', size = 6)+
+  annotate('text', x = 4, y = 14, label = 'b', size = 6)+
+  annotate('text', x = .75, y = 18, label = '(E)', size = 9)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none",
+        axis.title=element_text(size=20),
+        axis.text=element_text(size=15))+
+  labs(x = "",
+       y = "Average Weight of Seeds")
+
+mu_seedweifa<-df_bmassfac %>%
+  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
+                                   "Control, Beetle",
+                                   "Microplastic, No Beetle",
+                                   "Microplastic, Beetle")),
+             y=mu_seedwei,
+             fill=B_T))+
+  geom_bar(stat="identity",position = "dodge")+
+  geom_errorbar(aes(ymin=mu_seedwei-SE_seedwei, ymax=mu_seedwei+SE_seedwei),
+                width=.2,
+                position = position_dodge(.9))+
+  annotate('text', x = 1, y = 14, label = 'ab', size = 6)+
+  annotate('text', x = 2, y = 14, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 14, label = 'b', size = 6)+
+  annotate('text', x = 4, y = 14, label = 'b', size = 6)+
+  annotate('text', x = .75, y = 18, label = '(F)', size = 9)+
+  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  theme_bw()+
+  theme(legend.position = "none",
+        axis.title=element_text(size=20),
+        axis.text=element_text(size=15))+
+  labs(x = "",
+       y = "")
+
+
+
+pushViewport(viewport(layout=grid.layout(3,2)))
+print(mu_podsu,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
+print(mu_podfa,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
+print(mu_seedweisu,vp=viewport(layout.pos.row=3,layout.pos.col = 1))
+print(mu_seedweifa,vp=viewport(layout.pos.row=3,layout.pos.col = 2))
+print(mu_seednumsu,vp=viewport(layout.pos.row=2,layout.pos.col = 1))
+print(mu_seednumfa,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
 
 #stats --- run everything for all variables but nodule
 
