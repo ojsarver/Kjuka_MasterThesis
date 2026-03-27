@@ -338,15 +338,16 @@ summary(vfbb <- lme(value~Vegetative_stage*Treatment,
 anova(vfbb)
 lsmeans(vfbb, pairwise~Treatment, adjust='tukey')
 
-#vegetative fall ab
+#vegetative fall ab #getting error
 
 summary(vfab <- lme(value~Vegetative_stage*Treatment*Beetle,
-                        data=subset(df_favege2,!is.na(df_favege2$value)), 
+                        data=subset(df_faabpv,!is.na(df_faabpv$value)), 
                         random=~1|Plant_ID,
                         correlation=corAR1(form=~Vegetative_stage|Plant_ID),
                         control=lmeControl(returnObject=T)))
 
 Anova(vfab, type=3)
+
 lsmeans(vfab, pairwise~Treatment*Beetle, adjust='tukey')
 
 #reproduction summer (ab)

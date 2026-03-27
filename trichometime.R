@@ -13,24 +13,29 @@ df_tri<-read_csv(here("trichomes.csv"))
 
 
 df_tric<-df_tri%>%
-  group_by(Treatment,Beetle) %>%
-  summarize(mu_bh = mean(Beforeharvest,na.rm=T),
-            SE_bh=sd(Beforeharvest,na.rm=T)/sqrt(length(Beforeharvest)),
-            mu_ah = mean(Atharvest,na.rm=T),
-            SE_ah=sd(Atharvest,na.rm=T)/sqrt(length(Atharvest)))
+  group_by(Treatment,Beetle,Harvest) %>%
+  summarize(mu_bh = mean(Trichome_count,na.rm=T),
+            SE_bh=sd(Trichome_count,na.rm=T)/sqrt(length(Trichome_count)))
 
 df_tric$B_T<-paste(df_tric$Treatment,df_tric$Beetle)
+
+df_tribh<-df_tric %>%
+  filter(Harvest=="Week 15")
+
+df_triah<-df_tric %>%
+  filter(Harvest=="Week 15")
 
 # plot --------------------------------------------------------------------
 
 tribh<-df_tric %>%
+  filter(Harvest=="Week 15")%>%
   ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
                                    "Control, Beetle",
                                    "Microplastic, No Beetle",
                                    "Microplastic, Beetle")),
              y=mu_bh,
              fill=B_T))+
-  geom_bar(stat="identity")+
+  geom_bar(stat="identity", position = position_dodge())+
   geom_errorbar(aes(ymin=mu_bh-SE_bh,ymax=mu_bh+SE_bh),
                 width=0.2)+
   annotate('text', x = 1, y = 129, label = 'a', size = 6)+
@@ -46,14 +51,15 @@ tribh<-df_tric %>%
        y = "Average Trichome Number")
 
 triah<-df_tric %>%
+  filter(Harvest=="At Harvest")%>%
   ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
                                    "Control, Beetle",
                                    "Microplastic, No Beetle",
                                    "Microplastic, Beetle")),
-             y=mu_ah,
+             y=mu_bh,
              fill=B_T))+
   geom_bar(stat="identity")+
-  geom_errorbar(aes(ymin=mu_ah-SE_ah,ymax=mu_ah+SE_ah),
+  geom_errorbar(aes(ymin=mu_bh-SE_bh,ymax=mu_bh+SE_bh),
                 width=0.2)+
   annotate('text', x = 1, y = 122, label = 'a', size = 6)+
   annotate('text', x = 2, y = 122, label = 'a', size = 6)+
@@ -73,19 +79,13 @@ print(triah,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
 
 # stats -------------------------------------------------------------------
 
-#before harvest
-bhaov<-aov(Beforeharvest~Treatment*Beetle,
-            data=df_tri)
+#repeated measures anova
 
-Anova(bhaov,type=3)
+summary(rptri <- lme(Trichome_count~Harvest*Treatment*Beetle,
+                    data=df_tri, 
+                    random=~1|Plant_ID,
+                    correlation=corAR1(form=~Trichome_count|Plant_ID),
+                    control=lmeControl(returnObject=T)))
 
-emmeans(bhaov,~Treatment*Beetle)
-
-#at harvest
-
-ahaov<-aov(Atharvest~Treatment*Beetle,
-           data=df_tri)
-
-Anova(ahaov,type=3)
-
-emmeans(ahaov,~Treatment*Beetle)
+Anova(rptri, type=3)
+lsmeans(rptri, pairwise~Treatment*Beetle, adjust='tukey')

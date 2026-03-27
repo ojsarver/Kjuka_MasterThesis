@@ -62,8 +62,8 @@ mu_AGBsu<-df_bmasssuc %>%
                 position = position_dodge(.9))+
   annotate('text', x = 1, y = 41, label = 'a', size = 6)+
   annotate('text', x = 2, y = 41, label = 'b', size = 6)+
-  annotate('text', x = 3, y = 41, label = 'ab', size = 6)+
-  annotate('text', x = 4, y = 41, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 41, label = 'b', size = 6)+
+  annotate('text', x = 4, y = 41, label = 'ab', size = 6)+
   annotate('text', x = .75, y = 45, label = '(A)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
@@ -85,9 +85,9 @@ mu_AGBfa<-df_bmassfac %>%
                 width=.2,
                 position = position_dodge(.9))+
   annotate('text', x = 1, y = 41, label = 'a', size = 6)+
-  annotate('text', x = 2, y = 41, label = 'b', size = 6)+
-  annotate('text', x = 3, y = 41, label = 'ab', size = 6)+
-  annotate('text', x = 4, y = 41, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 41, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 41, label = 'b', size = 6)+
+  annotate('text', x = 4, y = 41, label = 'b', size = 6)+
   annotate('text', x = .75, y = 45, label = '(B)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
@@ -118,7 +118,7 @@ mu_BGBsu<-df_bmasssuc %>%
   theme(legend.position = "none",
         axis.title=element_text(size=20),
         axis.text=element_text(size=15))+
-  labs(x = "",
+  labs(x = "Trophic Interaction",
        y = "Average Belowground Biomass")
 
 mu_BGBfa<-df_bmassfac %>%
@@ -132,17 +132,17 @@ mu_BGBfa<-df_bmassfac %>%
   geom_errorbar(aes(ymin=mu_BGB-SE_BGB, ymax=mu_BGB+SE_BGB),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 9, label = 'ab', size = 6)+
-  annotate('text', x = 2, y = 9, label = 'ab', size = 6)+
-  annotate('text', x = 3, y = 9, label = 'a', size = 6)+
-  annotate('text', x = 4, y = 9, label = 'b', size = 6)+
+  annotate('text', x = 1, y = 9, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 9, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 9, label = 'b', size = 6)+
+  annotate('text', x = 4, y = 9, label = 'ab', size = 6)+
   annotate('text', x = .75, y = 13, label = '(D)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=20),
         axis.text=element_text(size=15))+
-  labs(x = "",
+  labs(x = "Plant Response",
        y = "")
 
 pushViewport(viewport(layout=grid.layout(2,2)))
@@ -173,7 +173,7 @@ mu_podsu<-df_bmasssuc %>%
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
+        axis.title=element_text(size=18),
         axis.text=element_text(size=15))+
   labs(x = "",
        y = "Average Number of Pods")
@@ -191,13 +191,13 @@ mu_podfa<-df_bmassfac %>%
                 position = position_dodge(.9))+
   annotate('text', x = 1, y = 61, label = 'a', size = 6)+
   annotate('text', x = 2, y = 61, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 61, label = 'a', size = 6)+
-  annotate('text', x = 4, y = 61, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 61, label = 'b', size = 6)+
+  annotate('text', x = 4, y = 61, label = 'b', size = 6)+
   annotate('text', x = .75, y = 65, label = '(B)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
+        axis.title=element_text(size=19),
         axis.text=element_text(size=15))+
   labs(x = "",
        y = "")
@@ -221,7 +221,7 @@ mu_seednumsu<-df_bmasssuc %>%
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
+        axis.title=element_text(size=18),
         axis.text=element_text(size=15))+
   labs(x = "",
        y = "Average Number of Seeds")
@@ -239,13 +239,13 @@ mu_seednumfa<-df_bmassfac %>%
                 position = position_dodge(.9))+
   annotate('text', x = 1, y = 115, label = 'a', size = 6)+
   annotate('text', x = 2, y = 115, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 115, label = 'a', size = 6)+
-  annotate('text', x = 4, y = 115, label = 'a', size = 6)+
+  annotate('text', x = 3, y = 115, label = 'b', size = 6)+
+  annotate('text', x = 4, y = 115, label = 'b', size = 6)+
   annotate('text', x = .75, y = 119, label = '(D)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
+        axis.title=element_text(size=19),
         axis.text=element_text(size=15))+
   labs(x = "",
        y = "")
@@ -261,17 +261,17 @@ mu_seedweisu<-df_bmasssuc %>%
   geom_errorbar(aes(ymin=mu_seedwei-SE_seedwei, ymax=mu_seedwei+SE_seedwei),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 14, label = 'ab', size = 6)+
-  annotate('text', x = 2, y = 14, label = 'a', size = 6)+
+  annotate('text', x = 1, y = 14, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 14, label = 'ab', size = 6)+
   annotate('text', x = 3, y = 14, label = 'b', size = 6)+
   annotate('text', x = 4, y = 14, label = 'b', size = 6)+
   annotate('text', x = .75, y = 18, label = '(E)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
+        axis.title=element_text(size=18),
         axis.text=element_text(size=15))+
-  labs(x = "",
+  labs(x = "Trophic Interaction",
        y = "Average Weight of Seeds")
 
 mu_seedweifa<-df_bmassfac %>%
@@ -287,15 +287,15 @@ mu_seedweifa<-df_bmassfac %>%
                 position = position_dodge(.9))+
   annotate('text', x = 1, y = 14, label = 'ab', size = 6)+
   annotate('text', x = 2, y = 14, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 14, label = 'b', size = 6)+
-  annotate('text', x = 4, y = 14, label = 'b', size = 6)+
+  annotate('text', x = 3, y = 14, label = 'c', size = 6)+
+  annotate('text', x = 4, y = 14, label = 'bc', size = 6)+
   annotate('text', x = .75, y = 18, label = '(F)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
+        axis.title=element_text(size=19),
         axis.text=element_text(size=15))+
-  labs(x = "",
+  labs(x = "Plant Response",
        y = "")
 
 
@@ -308,7 +308,8 @@ print(mu_seedweifa,vp=viewport(layout.pos.row=3,layout.pos.col = 2))
 print(mu_seednumsu,vp=viewport(layout.pos.row=2,layout.pos.col = 1))
 print(mu_seednumfa,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
 
-#stats --- run everything for all variables but nodule
+
+# stats summer ------------------------------------------------------------
 
 agbaov<-aov(Total_AGB~Treatment*Beetle,
           data=df_bmasssu)
@@ -348,3 +349,45 @@ bgbaov<-aov(Total_BGB~Treatment*Beetle,
 Anova(bgbaov,type=3)
 
 emmeans(bgbaov,~Treatment*Beetle)
+
+
+# stats fall --------------------------------------------------------------
+
+agbfaov<-aov(Total_AGB~Treatment*Beetle,
+            data=df_bmassfa)
+
+Anova(agbfaov,type=3)
+
+emmeans(agbfaov,~Treatment*Beetle)
+#
+
+podfaov<-aov(Pod_num~Treatment*Beetle,
+            data=df_bmassfa)
+
+Anova(podfaov,type=3)
+
+emmeans(podfaov,~Treatment*Beetle)
+#
+
+snfaov<-aov(Seed_num~Treatment*Beetle,
+           data=df_bmassfa)
+
+Anova(snfaov,type=3)
+
+emmeans(snfaov,~Treatment*Beetle)
+#
+
+swbfaov<-aov(Seed_weight~Treatment*Beetle,
+            data=df_bmassfa)
+
+Anova(swbfaov,type=3)
+
+emmeans(swbfaov,~Treatment*Beetle)
+#
+
+bgbfaov<-aov(Total_BGB~Treatment*Beetle,
+            data=df_bmassfa)
+
+Anova(bgbfaov,type=3)
+
+emmeans(bgbfaov,~Treatment*Beetle)
