@@ -23,7 +23,7 @@ df_tribh<-df_tric %>%
   filter(Harvest=="Week 15")
 
 df_triah<-df_tric %>%
-  filter(Harvest=="Week 15")
+  filter(Harvest!="Week 15")
 
 # plot --------------------------------------------------------------------
 
@@ -84,8 +84,9 @@ print(triah,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
 summary(rptri <- lme(Trichome_count~Harvest*Treatment*Beetle,
                     data=df_tri, 
                     random=~1|Plant_ID,
-                    correlation=corAR1(form=~Trichome_count|Plant_ID),
+                    correlation=corAR1(form=~1|Plant_ID),
                     control=lmeControl(returnObject=T)))
 
 Anova(rptri, type=3)
+
 lsmeans(rptri, pairwise~Treatment*Beetle, adjust='tukey')

@@ -148,6 +148,7 @@ df_fabbpr<-subset(df_farepr2,Reproductive_stage <=3)
 df_fabblr<-subset(df_farepr3bb,Reproductive_stage <=3)
 
 #split into aftere beetle addition
+#split into after beetle addition
 df_faabpr<-subset(df_farepr2,Reproductive_stage >3)
 df_faablr<-subset(df_farepr3ab,Reproductive_stage >3)
 
