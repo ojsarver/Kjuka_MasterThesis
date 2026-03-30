@@ -142,12 +142,15 @@ df_farepr3bb<-df_farepr2%>%
             SE_R=sd(value,na.rm=T)/sqrt(length(value)))%>%
   ungroup()
 
+#split into before beetle addition
+
 df_fabbpr<-subset(df_farepr2,Reproductive_stage <=3)
 df_fabblr<-subset(df_farepr3bb,Reproductive_stage <=3)
 
-#split into after beetle addition
+#split into aftere beetle addition
 df_faabpr<-subset(df_farepr2,Reproductive_stage >3)
 df_faablr<-subset(df_farepr3ab,Reproductive_stage >3)
+
 
 #summer combo vegetative and reproductive after beetle addition
 
@@ -308,7 +311,7 @@ print(faab,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
 #vegetative summer - before beetle
 
 summary(vsbb <- lme(value~Vegetative_stage*Treatment,
-                       data=subset(df_subb,!is.na(df_subb$value)), 
+                       data=subset(df_subbp,!is.na(df_subbp$value)), 
                        random=~1|Plant_ID,
                        correlation=corAR1(form=~Vegetative_stage|Plant_ID),
                        control=lmeControl(returnObject=T)))
@@ -319,7 +322,7 @@ lsmeans(vsbb, pairwise~Treatment, adjust='tukey')
 #vegetative summer after beetle
 
 summary(vsab <- lme(value~Vegetative_stage*Treatment*Beetle,
-                       data=subset(df_suab,!is.na(df_suab$value)), 
+                       data=subset(df_suabp,!is.na(df_suabp$value)), 
                        random=~1|Plant_ID,
                        correlation=corAR1(form=~Vegetative_stage|Plant_ID),
                        control=lmeControl(returnObject=T)))
@@ -338,7 +341,7 @@ summary(vfbb <- lme(value~Vegetative_stage*Treatment,
 anova(vfbb)
 lsmeans(vfbb, pairwise~Treatment, adjust='tukey')
 
-#vegetative fall ab #getting error
+#vegetative fall ab
 
 summary(vfab <- lme(value~Vegetative_stage*Treatment*Beetle,
                         data=subset(df_faabpv,!is.na(df_faabpv$value)), 
@@ -347,7 +350,6 @@ summary(vfab <- lme(value~Vegetative_stage*Treatment*Beetle,
                         control=lmeControl(returnObject=T)))
 
 Anova(vfab, type=3)
-
 lsmeans(vfab, pairwise~Treatment*Beetle, adjust='tukey')
 
 #reproduction summer (ab)
