@@ -352,7 +352,7 @@ summary(vfab <- lme(value~Vegetative_stage*Treatment*Beetle,
 Anova(vfab, type=3)
 lsmeans(vfab, pairwise~Treatment*Beetle, adjust='tukey')
 
-#reproduction summer (ab)
+#reproduction summer (ab no before beetles!!!)
 
 summary(rsab <- lme(value~Reproductive_stage*Treatment*Beetle,
                     data=df_surepr2, 
@@ -381,4 +381,4 @@ summary(rfbb <- lme(value~Reproductive_stage*Treatment,
                     control=lmeControl(returnObject=T)))
 
 anova(rfbb)
-lsmeans(rpaovrf, pairwise~Treatment*Beetle, adjust='tukey')
+lsmeans(rfbb, pairwise~Treatment, adjust='tukey')
