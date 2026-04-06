@@ -43,29 +43,28 @@ df_bmassfac<-df_bmassfa%>%
 
 df_bmassfac$B_T<-paste(df_bmassfac$Treatment,df_bmassfac$Beetle)
 
+df_suabg<-df_bmasssu%>%
+  group_by(Beetle) %>%
+  summarize(mu_AGB = mean(Total_AGB,na.rm=T),
+            SE_AGB=sd(Total_AGB,na.rm=T)/sqrt(length(Total_AGB)))
 
 #fix all letters
 
 
 # biomass plot ------------------------------------------------------------
 
-mu_AGBsu<-df_bmasssuc %>%
-  ggplot(aes(x=factor(B_T,levels=c("Control, No Beetle",
-                                   "Control, Beetle",
-                                   "Microplastic, No Beetle",
-                                   "Microplastic, Beetle")),
+mu_AGBsu<-df_suabg %>%
+  ggplot(aes(x=Beetle,
              y=mu_AGB,
-             fill=B_T))+
+             fill=Beetle))+
   geom_bar(stat="identity",position = "dodge")+
   geom_errorbar(aes(ymin=mu_AGB-SE_AGB, ymax=mu_AGB+SE_AGB),
                 width=.2,
                 position = position_dodge(.9))+
   annotate('text', x = 1, y = 41, label = 'a', size = 6)+
   annotate('text', x = 2, y = 41, label = 'b', size = 6)+
-  annotate('text', x = 3, y = 41, label = 'b', size = 6)+
-  annotate('text', x = 4, y = 41, label = 'ab', size = 6)+
   annotate('text', x = .75, y = 45, label = '(A)', size = 9)+
-  scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
+  scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=20),
@@ -317,6 +316,9 @@ agbaov<-aov(Total_AGB~Treatment*Beetle,
 Anova(agbaov,type=3)
 
 emmeans(agbaov,~Treatment*Beetle)
+
+emmeans(agbaov,~Beetle)
+
 #
 
 podaov<-aov(Pod_num~Treatment*Beetle,

@@ -224,6 +224,7 @@ df_faablr22<- rename(df_faablr, Vegetative_stage = Reproductive_stage,
          Timing="Post Beetle")
 
 bindeerabl <- rbind(df_faablr22,df_faablv33)
+bindeerabls<-subset(bindeerabl,Vegetative_stage <=15)
 
 # plots -------------------------------------------------------------------
 
@@ -281,11 +282,16 @@ fabb<-bindeerbbl %>%
 
 #fall ab 
 
-faab<-bindeerabl %>% 
-  ggplot(aes(x=Vegetative_stage, y=mu_V, color = B_T))+
-  geom_line(linewidth =.75)+
-  geom_point(size=2.5)+
-  geom_errorbar(data = bindeerabl, aes(ymin=mu_V-SE_V,
+bindeerablv<-subset(bindeerabl, Vegetative_stage==15)
+  data=subset(bindeerabls, Vegetative_stage<15)
+geom_bar(data=subset(bindeerabls, Vegetative_stage>10))+
+
+#working code
+  faab<-bindeerabls %>% 
+  ggplot(aes(x=Vegetative_stage, y=mu_V,color=B_T))+
+  geom_line(data=subset(bindeerabls, Vegetative_stage<15),linewidth =.75)+
+  geom_point(data=subset(bindeerabls, Vegetative_stage<15),size=2.5)+
+  geom_errorbar(data = subset(bindeerabls, Vegetative_stage<15), aes(ymin=mu_V-SE_V,
                                        ymax=mu_V+SE_V),width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
   scale_color_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
@@ -293,8 +299,45 @@ faab<-bindeerabl %>%
   theme(legend.position ="none",
         axis.title=element_text(size=13))+
   labs(x="Plant Response After Beetle Addition",
-       y="",
-       color="Treatment")
+       y="")
+
+bindeerabl %>% 
+  ggplot(aes(x=Vegetative_stage, y=mu_V,color=B_T))+ facet_wrap(~Life_stage, scales = "free_x")+
+  geom_line(data=subset(bindeerabl, Life_stage = "Reproductive"), linewidth =.75)+
+  geom_point(data=subset(bindeerabl, Life_stage = "Reproductive"), size=2.5)+
+  geom_errorbar(data = subset(bindeerabl, Life_stage = "Reproductive"), aes(ymin=mu_V-SE_V,
+                                                                          ymax=mu_V+SE_V),width=.2)+
+  scale_color_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
+  theme_bw()+
+  theme(legend.position ="none",
+        axis.title=element_text(size=13))+
+  labs(x="Plant Response After Beetle Addition",
+       y="")
+
+bindeerabl %>% 
+  ggplot(aes(x=Vegetative_stage, y=mu_V,color=B_T))+ facet_wrap(~Life_stage, scales = "free_x")+
+  geom_line(data=subset(bindeerabl, Vegetative_stage <15), linewidth =.75)+
+  geom_point(data=subset(bindeerabl, Vegetative_stage <15), size=2.5)+
+  geom_errorbar(data = subset(bindeerabl, Vegetative_stage <15), aes(ymin=mu_V-SE_V,
+                                                                     ymax=mu_V+SE_V),width=.2)+
+  scale_color_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
+  theme_bw()+
+  theme(legend.position ="none",
+        axis.title=element_text(size=13))+
+  labs(x="Plant Response After Beetle Addition",
+       y="")
+
+group_by(bindeerabl$Life_stage=="Reproductive")%>%
+  ungroup()%>%
+  group_by(Life_stage=="Vegetative")%>%
+  ggplot(aes(x=Vegetative_stage, y=mu_V, color = B_T))+
+  geom_bar()+
+
+bindeerabl %>%
+  ggplot(aes(x=Vegetative_stage==15, y=mu_V, color = B_T))+
+  geom_bar()
+  
+  
 
 pushViewport(viewport(layout=grid.layout(2,2)))
 print(subeforeb,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
@@ -352,7 +395,7 @@ summary(vfab <- lme(value~Vegetative_stage*Treatment*Beetle,
 Anova(vfab, type=3)
 lsmeans(vfab, pairwise~Treatment*Beetle, adjust='tukey')
 
-#reproduction summer (ab no before beetles!!!)
+#reproduction summer (ab)
 
 summary(rsab <- lme(value~Reproductive_stage*Treatment*Beetle,
                     data=df_surepr2, 
@@ -381,4 +424,4 @@ summary(rfbb <- lme(value~Reproductive_stage*Treatment,
                     control=lmeControl(returnObject=T)))
 
 anova(rfbb)
-lsmeans(rfbb, pairwise~Treatment, adjust='tukey')
+lsmeans(rpaovrf, pairwise~Treatment*Beetle, adjust='tukey')
