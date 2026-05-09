@@ -384,7 +384,7 @@ summary(vfbb <- lme(value~Vegetative_stage*Treatment,
 anova(vfbb)
 lsmeans(vfbb, pairwise~Treatment, adjust='tukey')
 
-#vegetative fall ab
+#vegetative fall ab - not repeated measures anova as jus comparing stage V15
 
 bindeerabpfaabv<-subset(bindeerabp,Vegetative_stage==15)
 
