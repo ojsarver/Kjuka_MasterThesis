@@ -84,10 +84,14 @@ su<-su3%>%
   annotate('text', x = .5, y = 31, label = '(A)', size = 10)+
   scale_fill_manual(values=c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(axis.title=element_text(size=25),
-        axis.text=element_text(size=20),
-        legend.position = "none")+
-  labs(x="Trophic Interaction Week 3",
+  theme(axis.title=element_text(size=29),
+        axis.text=element_text(size=25),
+        legend.position = "none",
+        plot.title = element_text(size=31,hjust=.5),
+        plot.subtitle=element_text(size=25,hjust=.5))+
+  labs(title="Trophic Interaction Week 3",
+       subtitle="N = 8",
+       x="",
        y="Average Percent Herbivory")
 
 fa<-fa3%>%
@@ -103,10 +107,14 @@ fa<-fa3%>%
   annotate('text', x = .5, y = 33, label = '(B)', size = 10)+
   scale_fill_manual(values=c("lightcyan1", "lightblue3"))+
   theme_bw()+
-  theme(axis.title=element_text(size=25),
-        axis.text=element_text(size=20),
-        legend.position = "none")+
-  labs(x="Plant Response Week 3",
+  theme(axis.title=element_text(size=29),
+        axis.text=element_text(size=25),
+        legend.position = "none",
+        plot.title = element_text(size=31,hjust=.5),
+        plot.subtitle=element_text(size=25,hjust=.5))+
+  labs(title="Plant Response Week 3",
+       subtitle = "N = 8",
+       x="",
        y="")
 
 pushViewport(viewport(layout=grid.layout(1,2)))

@@ -82,10 +82,14 @@ sufp<-su8%>%
   annotate('text', x = .75, y = 1.4, label = '(A)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
-  theme(axis.title=element_text(size=20),
-        axis.text=element_text(size=12),
-        legend.position = "none")+
-  labs(x="Trophic Interaction Week 8",
+  theme(axis.title=element_text(size=23),
+        axis.text=element_text(size=14),
+        legend.position = "none",
+        plot.title = element_text(size=29,hjust=.5),
+        plot.subtitle=element_text(size=25,hjust=.5))+
+  labs(title="Trophic Interaction Week 8",
+       subtitle="N = 29",
+       x="",
        y="Proportion of Plants with Fungal Damage")
 
 
@@ -108,10 +112,14 @@ fafp<-fa10%>%
   annotate('text', x = .75, y = .03, label = '(B)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
-  theme(axis.title=element_text(size=20),
-        axis.text=element_text(size=12),
-         legend.position = "none")+
-  labs(x="Plant Response Week 10",
+  theme(axis.title=element_text(size=23),
+        axis.text=element_text(size=14),
+         legend.position = "none",
+        plot.title = element_text(size=29,hjust=.5),
+        plot.subtitle=element_text(size=25,hjust=.5))+
+  labs(title="Plant Response Week 10",
+       subtitle="N = 21",
+       x="",
        y="Average Percentage of Fungal Damage")
 
 pushViewport(viewport(layout=grid.layout(1,2)))

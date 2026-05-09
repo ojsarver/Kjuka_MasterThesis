@@ -70,14 +70,20 @@ vp1<-df_spmu %>%
                     width=0.2))+
   annotate('text', x = 1, y = 21, label = 'a', size = 8)+
   annotate('text', x = 2, y = 21, label = 'b', size = 8)+
-  annotate('text', x = .75, y = 24, label = '(A)', size = 9)+
+  annotate('text', x = .65, y = 24, label = '(A)', size = 9)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(axis.title=element_text(size=20),
         axis.text=element_text(size=12),
-        legend.position = "none")+
-  labs(x = "Germination",
-       y = "MGT in Days")
+        legend.position = "none",
+        plot.title = element_text(size=20,hjust=.5),
+        plot.subtitle=element_text(size=15,hjust=.5),
+        plot.title.position="panel")+
+  labs(title = "Germination",
+  subtitle="N = 16",
+       y = "MGT in Days",
+  x="")
+
 
 vp2<-df_sumu %>%
   ggplot(aes(x=Treatment,
@@ -88,14 +94,19 @@ vp2<-df_sumu %>%
                     width=0.2))+
   annotate('text', x = 1, y = 4, label = 'a', size = 8)+
   annotate('text', x = 2, y = 4, label = 'a', size = 8)+
-  annotate('text', x = .75, y = 4.5, label = '(B)', size = 9)+
+  annotate('text', x = .65, y = 4.5, label = '(B)', size = 9)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(axis.title=element_text(size=20),
         axis.text=element_text(size=12),
-        legend.position = "none")+
-  labs(x = "Trophic Interaction",
-       y = "")
+        legend.position = "none",
+        plot.title = element_text(size=20,,hjust=.5),
+        plot.subtitle=element_text(size=15,hjust=.5),
+        plot.title.position="panel")+
+  labs(title = "Trophic Interaction",
+  subtitle= "N = 145",
+       y = "",
+  x="")
 
 vp3<-df_famu %>%
   ggplot(aes(x=Treatment,
@@ -106,14 +117,18 @@ vp3<-df_famu %>%
                     width=0.2))+
   annotate('text', x = 1, y = 5, label = 'a', size = 8)+
   annotate('text', x = 2, y = 5, label = 'b', size = 8)+
-  annotate('text', x = .75, y = 5.5, label = '(C)', size = 9)+
+  annotate('text', x = .65, y = 5.5, label = '(C)', size = 9)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(axis.title=element_text(size=20),
-        axis.text=element_text(size=12),
-        legend.position = "none")+
-  labs(x = "Plant Response",
-       y = "")
+        axis.text=element_text(size=15),
+        legend.position = "none",
+        plot.title = element_text(size=20,hjust=.5),
+        plot.subtitle=element_text(size=15,hjust=.5))+
+  labs(title = "Plant Response",
+  subtitle="N = 105",
+       y = "",
+       x="")
 
 pushViewport(viewport(layout=grid.layout(1,3)))
 print(vp1,vp=viewport(layout.pos.row=1,layout.pos.col = 1))

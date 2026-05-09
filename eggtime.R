@@ -38,13 +38,15 @@ mu_egg<-df_egglarc %>%
                 width=0.2)+
   annotate('text', x = 1, y = 58, label = 'a', size = 6)+
   annotate('text', x = 2, y = 58, label = 'b', size = 6)+
-  annotate('text', x = .5, y = 59, label = '(A)', size = 7)+
+  annotate('text', x = .65, y = 59, label = '(A)', size = 7)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=18),
-        axis.text=element_text(size=15))+
+        axis.text=element_text(size=15),
+        plot.subtitle=element_text(size=15,hjust=.5))+
   labs(x = "",
+       subtitle="N = 11 N = 4",
        y = "Average Number of Eggs in Each Mass")
 
 #avg # of egg masses
@@ -57,13 +59,15 @@ mu_mass<-df_egglarc %>%
                 width=0.2)+
   annotate('text', x = 1, y = 2, label = 'a', size = 6)+
   annotate('text', x = 2, y = 2, label = 'b', size = 6)+
-  annotate('text', x = .5, y = 2, label = '(B)', size = 7)+
+  annotate('text', x = .65, y = 2, label = '(B)', size = 7)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=19),
-        axis.text=element_text(size=15))+
+        axis.text=element_text(size=15),
+        plot.subtitle=element_text(size=15,hjust=.5))+
   labs(x = "",
+       subtitle = "N = 11 N = 4",
        y = "Average Number of Egg Masses Laid")
 
 #avg adults
@@ -76,13 +80,15 @@ mu_adults<-df_egglarc%>%
                 width=0.2)+
   annotate('text', x = 1, y = 10, label = 'a', size = 6)+
   annotate('text', x = 2, y = 10, label = 'b', size = 6)+
-  annotate('text', x = .5, y = 11, label = '(D)', size = 7)+
+  annotate('text', x = .65, y = 11, label = '(D)', size = 7)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=19),
-        axis.text=element_text(size=15))+
+        axis.text=element_text(size=15),
+        plot.subtitle=element_text(size=15,hjust=.5))+
   labs(x = "",
+       subtitle = "N = 47 N = 7",
        y = "Average Number of Adults")
 
 #avg hatched
@@ -96,13 +102,15 @@ mu_hat<-df_egglarc%>%
                 width=0.2)+
   annotate('text', x = 1, y = 27, label = 'a', size = 6)+
   annotate('text', x = 2, y = 27, label = 'b', size = 6)+
-  annotate('text', x = .5, y = 28, label = '(C)', size = 7)+
+  annotate('text', x = .65, y = 28, label = '(C)', size = 7)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=19),
-        axis.text=element_text(size=15))+
+        axis.text=element_text(size=15),
+        plot.subtitle=element_text(size=15,hjust=.5))+
   labs(x = "",
+       subtitle = "N = 319                                    N = 50",
        y = "Average Number of Eggs that Hatched")
 
 pushViewport(viewport(layout=grid.layout(2,2)))

@@ -33,8 +33,10 @@ df_weightc %>%
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
-  labs(x = "",
+        axis.text=element_text(size=15),
+        plot.subtitle=element_text(size=20,hjust=.5))+
+  labs(subtitle = "N = 48                                          N = 6",
+       x="",
        y = "Average Weight of Larvae")
 
 #stats
