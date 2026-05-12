@@ -42,12 +42,15 @@ tribh<-df_tric %>%
   annotate('text', x = 2, y = 129, label = 'a', size = 6)+
   annotate('text', x = 3, y = 129, label = 'a', size = 6)+
   annotate('text', x = 4, y = 129, label = 'a', size = 6)+
+  annotate('text', x = .65, y = 130, label = '(A)', size = 12)+
   scale_fill_manual(values = c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
+        axis.title=element_text(size=29),
+        axis.text=element_text(size=13),
+        plot.subtitle=element_text(size=25,hjust=.5))+
   labs(x = "Week 15",
+       subtitle = "N = 13 N = 8 N = 13 N = 8",
        y = "Average Trichome Number")
 
 triah<-df_tric %>%
@@ -65,12 +68,15 @@ triah<-df_tric %>%
   annotate('text', x = 2, y = 122, label = 'a', size = 6)+
   annotate('text', x = 3, y = 122, label = 'ab', size = 6)+
   annotate('text', x = 4, y = 122, label = 'b', size = 6)+
+  annotate('text', x = .65, y = 123, label = '(B)', size = 12)+
   scale_fill_manual(values = c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
-        axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
+        axis.title=element_text(size=29),
+        axis.text=element_text(size=13),
+        plot.subtitle=element_text(size=25,hjust=.5))+
   labs(x = "At Harvest",
+       subtitle = "N = 13 N = 8 N = 13 N = 8",
        y = "")
 
 pushViewport(viewport(layout=grid.layout(1,2)))

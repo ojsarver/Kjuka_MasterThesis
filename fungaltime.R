@@ -88,7 +88,7 @@ sufp<-su8%>%
         plot.title = element_text(size=29,hjust=.5),
         plot.subtitle=element_text(size=25,hjust=.5))+
   labs(title="Trophic Interaction Week 8",
-       subtitle="N = 29",
+       subtitle="N = 21 N = 8 N = 21 N = 8",
        x="",
        y="Proportion of Plants with Fungal Damage")
 
@@ -118,7 +118,7 @@ fafp<-fa10%>%
         plot.title = element_text(size=29,hjust=.5),
         plot.subtitle=element_text(size=25,hjust=.5))+
   labs(title="Plant Response Week 10",
-       subtitle="N = 21",
+       subtitle="N = 13 N = 8 N = 13 N = 8",
        x="",
        y="Average Percentage of Fungal Damage")
 

@@ -234,11 +234,9 @@ bindeerablt<-subset(bindeerabl,Vegetative_stage ==15)
 subeforeb<-df_subbl33 %>% 
   ggplot(aes(x=Vegetative_stage, y=mu_V, color = Treatment))+
   geom_line(linewidth =.75)+
-  geom_point(size=2.5)+
   geom_errorbar(aes(ymin=mu_V-SE_V,
                     ymax=mu_V+SE_V),,width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
-  annotate('text', x = .75, y = 8.2, label = '(A)', size = 8)+
   scale_color_manual(values = c("#6ABFD6", "#43527A"))+
   theme_bw()+
   theme(axis.title=element_text(size=13),
@@ -251,7 +249,6 @@ subeforeb<-df_subbl33 %>%
 suafterb<-bindeer2 %>% 
   ggplot(aes(x=Vegetative_stage, y=mu_V, color = B_T))+
   geom_line(linewidth =.75)+
-  geom_point(size=2.5)+
   geom_errorbar(data = bindeer2, aes(ymin=mu_V-SE_V,
                                      ymax=mu_V+SE_V),width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
@@ -270,7 +267,6 @@ suafterb<-bindeer2 %>%
 fabb<-bindeerbbl %>% 
   ggplot(aes(x=Vegetative_stage, y=mu_V, color = Treatment))+
   geom_line(linewidth =.75)+
-  geom_point(size=2.5)+
   geom_errorbar(data = bindeerbbl, aes(ymin=mu_V-SE_V,
                                      ymax=mu_V+SE_V),width=.2)+
   facet_wrap(~Life_stage, scales = "free_x")+
@@ -281,18 +277,19 @@ fabb<-bindeerbbl %>%
   labs(x="Plant Response Before Beetle Addition",
        y="")
 
-#fall ab 
+#fall ab - top code doesn't work
 
-bindeerabltt$cont<-c(2,1,4,3)
-
-ggplot(data=bindeerabl,aes(x=Vegetative_stage, y=mu_V,color=B_T))+ facet_wrap(~Life_stage, 
-                                                                scales = "free")+
+ggplot(data=bindeerabl,aes(x=Vegetative_stage, y=mu_V,color=B_T))+ 
+  facet_wrap(~Life_stage,scales = "free")+
   geom_line(data=subset(bindeerabl, Vegetative_stage <15), linewidth =.75)+
   geom_point(data=subset(bindeerabl, Vegetative_stage <15), size=2.5)+
-  geom_errorbar(data = subset(bindeerabl, Vegetative_stage <15), aes(ymin=mu_V-SE_V,
-                                                                     ymax=mu_V+SE_V),width=.2)+
+  geom_errorbar(data = subset(bindeerabl, Vegetative_stage <15),
+                aes(ymin=mu_V-SE_V,
+                    ymax=mu_V+SE_V),width=.2)+
   geom_bar(data = bindeerabltt, mapping=aes(x=cont,
-                                    y=mu_V, fill= c("#B3967D","#6ABFD6","#6E4D3E", "#43527A")), stat="identity",
+                                    y=mu_V, 
+                                    fill= c("#B3967D","#6ABFD6","#6E4D3E", "#43527A")), 
+           stat="identity",
            position = "dodge",)+
   scale_color_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
   scale_fill_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
@@ -304,18 +301,18 @@ ggplot(data=bindeerabl,aes(x=Vegetative_stage, y=mu_V,color=B_T))+ facet_wrap(~L
 
 #just the bar graph with error bars
 
-bindeerablt%>%
-ggplot(aes(x=cont,
+faab<-bindeerablt%>%
+ggplot(aes(x=B_T,
            y=mu_V, 
            fill= B_T))+
   geom_bar(stat="identity",position = "dodge")+
   geom_errorbar(aes(ymin=mu_V-SE_V,
-                    ymax=mu_V+SE_V),width=.2)+
+                    ymax=mu_V+SE_V),width=.2,
+                position = position_dodge(.9))+
   annotate('text', x = 1, y = 14, label = 'a', size = 6)+
   annotate('text', x = 2, y = 14, label = 'a', size = 6)+
   annotate('text', x = 3, y = 14, label = 'a', size = 6)+
   annotate('text', x = 4, y = 14, label = 'a', size = 6)+
-  annotate('text', x = .75, y = 18, label = '(G)', size = 9)+
   scale_fill_manual(values=c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
   theme_bw()+
   theme(legend.position = "none",
@@ -331,10 +328,9 @@ print(fabb,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
 print(ggplot(data=bindeerabl,aes(x=Vegetative_stage, y=mu_V,color=B_T))+ facet_wrap(~Life_stage, 
                                                                                     scales = "free")+
         geom_line(data=subset(bindeerabl, Vegetative_stage <15), linewidth =.75)+
-        geom_point(data=subset(bindeerabl, Vegetative_stage <15), size=2.5)+
         geom_errorbar(data = subset(bindeerabl, Vegetative_stage <15), aes(ymin=mu_V-SE_V,
                                                                            ymax=mu_V+SE_V),width=.2)+
-        geom_bar(data = bindeerabltt, mapping=aes(x=cont,
+        geom_bar(data = bindeerablt, mapping=aes(x=Vegetative_stage,
                                                   y=mu_V, fill= B_T), stat="identity",
                  position = "dodge",)+
         scale_color_manual(values = c("#B3967D","#6ABFD6","#6E4D3E", "#43527A"))+
@@ -384,7 +380,7 @@ summary(vfbb <- lme(value~Vegetative_stage*Treatment,
 anova(vfbb)
 lsmeans(vfbb, pairwise~Treatment, adjust='tukey')
 
-#vegetative fall ab - not repeated measures anova as jus comparing stage V15
+#vegetative fall ab - not repeated measures anova as just comparing stage V15
 
 bindeerabpfaabv<-subset(bindeerabp,Vegetative_stage==15)
 

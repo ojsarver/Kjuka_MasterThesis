@@ -61,15 +61,20 @@ mu_AGBsu<-df_suabg %>%
   geom_errorbar(aes(ymin=mu_AGB-SE_AGB, ymax=mu_AGB+SE_AGB),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 41, label = 'a', size = 6)+
-  annotate('text', x = 2, y = 41, label = 'b', size = 6)+
-  annotate('text', x = .75, y = 45, label = '(A)', size = 9)+
+  annotate('text', x = 1, y = 41, label = 'a', size = 10)+
+  annotate('text', x = 2, y = 41, label = 'b', size = 10)+
+  annotate('text', x = .75, y = 45, label = '(A)', size = 11)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
+        axis.text=element_text(size=15),
+        plot.title = element_text(size=25,hjust=.5),
+        plot.subtitle=element_text(size=19,hjust=.5),
+        plot.title.position="panel")+
   labs(x = "",
+       title = "Trophic Interaction",
+       subtitle = "N = 16 N = 42",
        y = "Average Aboveground Biomass")
 
 mu_AGBfa<-df_bmassfac %>%
@@ -83,17 +88,22 @@ mu_AGBfa<-df_bmassfac %>%
   geom_errorbar(aes(ymin=mu_AGB-SE_AGB, ymax=mu_AGB+SE_AGB),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 41, label = 'a', size = 6)+
-  annotate('text', x = 2, y = 41, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 41, label = 'b', size = 6)+
-  annotate('text', x = 4, y = 41, label = 'b', size = 6)+
-  annotate('text', x = .75, y = 45, label = '(B)', size = 9)+
+  annotate('text', x = 1, y = 41, label = 'a', size = 10)+
+  annotate('text', x = 2, y = 41, label = 'a', size = 10)+
+  annotate('text', x = 3, y = 41, label = 'b', size = 10)+
+  annotate('text', x = 4, y = 41, label = 'b', size = 10)+
+  annotate('text', x = .75, y = 45, label = '(B)', size = 11)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
+        axis.text=element_text(size=15),
+        plot.title = element_text(size=25,hjust=.5),
+        plot.subtitle=element_text(size=19,hjust=.5),
+        plot.title.position="panel")+
   labs(x = "",
+       title = "Plant Response",
+       subtitle = "N = 13 N = 8 N = 13 N = 8",
        y = "")
 
 mu_BGBsu<-df_bmasssuc %>%
@@ -107,17 +117,19 @@ mu_BGBsu<-df_bmasssuc %>%
   geom_errorbar(aes(ymin=mu_BGB-SE_BGB, ymax=mu_BGB+SE_BGB),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 9, label = 'ab', size = 6)+
-  annotate('text', x = 2, y = 9, label = 'ab', size = 6)+
-  annotate('text', x = 3, y = 9, label = 'a', size = 6)+
-  annotate('text', x = 4, y = 9, label = 'b', size = 6)+
-  annotate('text', x = .75, y = 13, label = '(C)', size = 9)+
+  annotate('text', x = 1, y = 9, label = 'ab', size = 10)+
+  annotate('text', x = 2, y = 9, label = 'ab', size = 10)+
+  annotate('text', x = 3, y = 9, label = 'a', size = 10)+
+  annotate('text', x = 4, y = 9, label = 'b', size = 10)+
+  annotate('text', x = .75, y = 13, label = '(C)', size = 11)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
-  labs(x = "Trophic Interaction",
+        axis.text=element_text(size=15),
+        plot.subtitle=element_text(size=19,hjust=.5))+
+  labs(x = "",
+       subtitle = "N = 13 N = 8 N = 13 N = 8",
        y = "Average Belowground Biomass")
 
 mu_BGBfa<-df_bmassfac %>%
@@ -131,17 +143,19 @@ mu_BGBfa<-df_bmassfac %>%
   geom_errorbar(aes(ymin=mu_BGB-SE_BGB, ymax=mu_BGB+SE_BGB),
                 width=.2,
                 position = position_dodge(.9))+
-  annotate('text', x = 1, y = 9, label = 'a', size = 6)+
-  annotate('text', x = 2, y = 9, label = 'a', size = 6)+
-  annotate('text', x = 3, y = 9, label = 'b', size = 6)+
-  annotate('text', x = 4, y = 9, label = 'ab', size = 6)+
-  annotate('text', x = .75, y = 13, label = '(D)', size = 9)+
+  annotate('text', x = 1, y = 9, label = 'a', size = 10)+
+  annotate('text', x = 2, y = 9, label = 'a', size = 10)+
+  annotate('text', x = 3, y = 9, label = 'b', size = 10)+
+  annotate('text', x = 4, y = 9, label = 'ab', size = 10)+
+  annotate('text', x = .75, y = 13, label = '(D)', size = 11)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=20),
-        axis.text=element_text(size=15))+
-  labs(x = "Plant Response",
+        axis.text=element_text(size=15),
+        plot.subtitle=element_text(size=19,hjust=.5))+
+  labs(x = "",
+       subtitle = "N = 13 N = 8 N = 13 N = 8",
        y = "")
 
 pushViewport(viewport(layout=grid.layout(2,2)))
@@ -168,13 +182,15 @@ mu_podsu<-df_bmasssuc %>%
   annotate('text', x = 2, y = 61, label = 'a', size = 6)+
   annotate('text', x = 3, y = 61, label = 'a', size = 6)+
   annotate('text', x = 4, y = 61, label = 'a', size = 6)+
-  annotate('text', x = .75, y = 65, label = '(A)', size = 9)+
+  annotate('text', x = .65, y = 65, label = '(A)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=18),
-        axis.text=element_text(size=15))+
+        axis.text=element_text(size=15),
+        plot.subtitle=element_text(size=18,hjust=.5))+
   labs(x = "",
+       subtitle = "N = 21 N = 8 N = 21 N = 8",
        y = "Average Number of Pods")
 
 mu_podfa<-df_bmassfac %>%
@@ -192,13 +208,15 @@ mu_podfa<-df_bmassfac %>%
   annotate('text', x = 2, y = 61, label = 'a', size = 6)+
   annotate('text', x = 3, y = 61, label = 'b', size = 6)+
   annotate('text', x = 4, y = 61, label = 'b', size = 6)+
-  annotate('text', x = .75, y = 65, label = '(B)', size = 9)+
+  annotate('text', x = .65, y = 65, label = '(B)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
         axis.title=element_text(size=19),
-        axis.text=element_text(size=15))+
+        axis.text=element_text(size=15),
+        plot.subtitle=element_text(size=18,hjust=.5))+
   labs(x = "",
+       subtitle = "N = 13 N =  N = 13 N = 8",
        y = "")
 
 mu_seednumsu<-df_bmasssuc %>%
@@ -216,7 +234,7 @@ mu_seednumsu<-df_bmasssuc %>%
   annotate('text', x = 2, y = 115, label = 'a', size = 6)+
   annotate('text', x = 3, y = 115, label = 'a', size = 6)+
   annotate('text', x = 4, y = 115, label = 'a', size = 6)+
-  annotate('text', x = .75, y = 119, label = '(C)', size = 9)+
+  annotate('text', x = .65, y = 119, label = '(C)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
@@ -240,7 +258,7 @@ mu_seednumfa<-df_bmassfac %>%
   annotate('text', x = 2, y = 115, label = 'a', size = 6)+
   annotate('text', x = 3, y = 115, label = 'b', size = 6)+
   annotate('text', x = 4, y = 115, label = 'b', size = 6)+
-  annotate('text', x = .75, y = 119, label = '(D)', size = 9)+
+  annotate('text', x = .65, y = 119, label = '(D)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
@@ -264,7 +282,7 @@ mu_seedweisu<-df_bmasssuc %>%
   annotate('text', x = 2, y = 14, label = 'ab', size = 6)+
   annotate('text', x = 3, y = 14, label = 'b', size = 6)+
   annotate('text', x = 4, y = 14, label = 'b', size = 6)+
-  annotate('text', x = .75, y = 18, label = '(E)', size = 9)+
+  annotate('text', x = .65, y = 18, label = '(E)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
@@ -288,7 +306,7 @@ mu_seedweifa<-df_bmassfac %>%
   annotate('text', x = 2, y = 14, label = 'a', size = 6)+
   annotate('text', x = 3, y = 14, label = 'c', size = 6)+
   annotate('text', x = 4, y = 14, label = 'bc', size = 6)+
-  annotate('text', x = .75, y = 18, label = '(F)', size = 9)+
+  annotate('text', x = .65, y = 18, label = '(F)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
