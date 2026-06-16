@@ -9,6 +9,12 @@ df_egg<-read_csv(here("su25beetleegg1.csv"))
 df_egglar<-read_csv(here("su25EGGLARVAE.csv"))
 
 
+# subset data] ------------------------------------------------------------
+
+df_prop<-df_egglar[c("Treatment","Plant_ID","prop_hat","prop_adult")]
+
+df_prop<-na.omit(df_prop)
+
 # calculations ------------------------------------------------------------
 
 
@@ -16,14 +22,31 @@ df_egglarc<-df_egglar%>%
 group_by(Treatment) %>%
   summarize(mu_egg = mean(Num_Eggs),
             SE_egg=sd(Num_Eggs,na.rm=T)/sqrt(length(Num_Eggs)),
-            mu_hat = mean(Eggs_hatched),
-            SE_hat=sd(Eggs_hatched,na.rm=T)/sqrt(length(Eggs_hatched)),
+            
             total_egg=sum(Num_Eggs),
+            
             mu_mass=mean(Egg_mass),
-            SE_mass=sd(Egg_mass,na.rm=T)/sqrt(length(Egg_mass)),
-            prop_hatched=(sum(Eggs_hatched))/(sum(Egg_mass)),
-            mu_adult=mean(Adults),
-            SE_adult=sd(Adults,na.rm=T)/sqrt(length(Adults)))
+            SE_mass=sd(Egg_mass,na.rm=T)/sqrt(length(Egg_mass)))
+
+df_propc<-df_prop%>%
+  group_by(Treatment)%>%
+  summarize(mu_hat=mean(prop_hat),
+            SE_hat=sd(prop_hat)/sqrt(length(prop_hat)),
+            mu_adult=mean(prop_adult),
+            SE_adult=sd(prop_adult)/sqrt(length(prop_adult)))
+
+            
+            #mu_hat = mean(Eggs_hatched),
+            #SE_hat=sd(Eggs_hatched,na.rm=T)/sqrt(length(Eggs_hatched)),
+            
+            ##mu_prop_hat=mean(prop_hat),
+            #SE_prop_hat=sd(prop_hat,na.rm=T)/sqrt(length(prop_hat)),
+            #prop_hatched0=(sum(Eggs_hatched))/(sum(Egg_mass)),
+            
+            #mu_adult=mean(Adults),
+            #SE_adult=sd(Adults,na.rm=T)/sqrt(length(Adults)),
+            
+            #prop_adult=(sum(Adults))/(sum(Adults)))
 
 # plots -------------------------------------------------------------------
 
@@ -71,16 +94,16 @@ mu_mass<-df_egglarc %>%
        y = "Average Number of Egg Masses Laid")
 
 #avg adults
-mu_adults<-df_egglarc%>%
+mu_adults<-df_propc%>%
   ggplot(aes(x=Treatment,
              y=mu_adult,
              fill=Treatment))+
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_adult-SE_adult,ymax=mu_adult+SE_adult),
                 width=0.2)+
-  annotate('text', x = 1, y = 10, label = 'a', size = 6)+
-  annotate('text', x = 2, y = 10, label = 'b', size = 6)+
-  annotate('text', x = .65, y = 11, label = '(D)', size = 7)+
+  annotate('text', x = 1, y = 1, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 1, label = 'a', size = 6)+
+  annotate('text', x = .65, y = 1.5, label = '(D)', size = 7)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
@@ -89,20 +112,20 @@ mu_adults<-df_egglarc%>%
         plot.subtitle=element_text(size=15,hjust=.5))+
   labs(x = "",
        subtitle = "N = 47 N = 7",
-       y = "Average Number of Adults")
+       y = "Average Proportion of Adults")
 
 #avg hatched
 
-mu_hat<-df_egglarc%>%
+mu_hat<-df_propc%>%
   ggplot(aes(x=Treatment,
              y=mu_hat,
              fill=Treatment))+
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_hat-SE_hat,ymax=mu_hat+SE_hat),
                 width=0.2)+
-  annotate('text', x = 1, y = 27, label = 'a', size = 6)+
-  annotate('text', x = 2, y = 27, label = 'b', size = 6)+
-  annotate('text', x = .65, y = 28, label = '(C)', size = 7)+
+  annotate('text', x = 1, y = 1, label = 'a', size = 6)+
+  annotate('text', x = 2, y = 1, label = 'a', size = 6)+
+  annotate('text', x = .65, y = 1.5, label = '(C)', size = 7)+
   scale_fill_manual(values = c("lightcyan1", "lightblue3"))+
   theme_bw()+
   theme(legend.position = "none",
@@ -111,7 +134,7 @@ mu_hat<-df_egglarc%>%
         plot.subtitle=element_text(size=15,hjust=.5))+
   labs(x = "",
        subtitle = "N = 319                                    N = 50",
-       y = "Average Number of Eggs that Hatched")
+       y = "Average Proportion of Eggs that Hatched")
 
 pushViewport(viewport(layout=grid.layout(2,2)))
 print(mu_egg,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
@@ -121,10 +144,7 @@ print(mu_adults,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
 
 #stats for eggs and larvae
 
-#separate models for total mass and total egg
-
-wilcox.test(Num_Eggs~Treatment,
-       data=df_egglar)
+#separate linear mixed models for total mass and total egg
 
 numegglme<-lme(Num_Eggs~Treatment,
            data=df_egglar,
@@ -132,17 +152,34 @@ numegglme<-lme(Num_Eggs~Treatment,
 
 anova(numegglme)
 
-wilcox.test(Eggs_hatched~Treatment,
-       data=df_egglar)
-
-wilcox.test(Egg_mass~Treatment,
-       data=df_egglar)
-
 eggmasslme<-lme(Egg_mass~Treatment,
                 data=df_egglar,
                 random=~1|Plant_ID)
 
 anova(eggmasslme)
+
+prophatlme<-lme(prop_hat~Treatment,
+                data=df_prop,
+                random=~1|Plant_ID)
+
+anova(prophatlme)
+
+propadultlme<-lme(prop_adult~Treatment,
+                data=df_prop,
+                random=~1|Plant_ID)
+
+anova(propadultlme)
+
+#Original wilcoxon tests
+
+wilcox.test(Num_Eggs~Treatment,
+            data=df_egglar)
+
+wilcox.test(Eggs_hatched~Treatment,
+            data=df_egglar)
+
+wilcox.test(Egg_mass~Treatment,
+            data=df_egglar)
 
 wilcox.test(Adults~Treatment,
        data=df_egglar)

@@ -152,7 +152,7 @@ Anova(fglmmfa, type=3)
 
 lsmeans(fglmmfa, pairwise~Treatment*Beetle, adjust='tukey')
 
-#Fall avg percentage including zeroes - too low sample size to do
+#Fall avg percentage including zeroes 
 
 haov<-aov(value~Treatment*Beetle,
           data=subset(df_fafpa,Week==10))
@@ -162,7 +162,7 @@ Anova(haov,type=3)
 emmeans(haov,~Treatment*Beetle)
 
 #fall avg percentage w/o zeroes - no anova cause unequal observations
-#linear mixed effects model
+#linear mixed effects model- too low sample size to do
 
 falme<-lme(value~Treatment*Beetle,
            data=subset(df_fa0,Week==10),
