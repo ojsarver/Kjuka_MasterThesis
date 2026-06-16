@@ -1,10 +1,13 @@
 pacman::p_load(tidyverse,
                patchwork,
                here,
+               car,
+               emmeans,
+               nlme,
                grid)
 
 df_sufungpa<-read_csv(here("fung_presenceabsence.csv"))
-df_fafungpa<-read_csv(here("fa25fung.csv"))
+df_fafungpa<-read_csv(here("fa25fungpa.csv"))
 
 # tidy data ---------------------------------------------------------------
 
@@ -58,7 +61,7 @@ df_fafpavg<-df_fafpa%>%
 
 df_fafpavg$B_T<-paste(df_fafpavg$Treatment,df_fafpavg$Beetle)
 
-fa10<-subset(df_fafpavg, Week==10)
+fa10<-subset(df_fafpavg, Week==8)
 
 fa10$B_T <- factor(fa10$B_T)
 
@@ -105,11 +108,11 @@ fafp<-fa10%>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mu_f-SE_f, ymax=mu_f+SE_f,
                     width=0.2))+
-  annotate('text', x = 1, y = .0225, label = 'a', size = 8)+
-  annotate('text', x = 2, y = .0225, label = 'a', size = 8)+
-  annotate('text', x = 3, y = .0225, label = 'b', size = 8)+
-  annotate('text', x = 4, y = .0225, label = 'a', size = 8)+
-  annotate('text', x = .75, y = .03, label = '(B)', size = 9)+
+  annotate('text', x = 1, y = .68, label = 'a', size = 8)+
+  annotate('text', x = 2, y = .68, label = 'a', size = 8)+
+  annotate('text', x = 3, y = .68, label = 'a', size = 8)+
+  annotate('text', x = 4, y = .68, label = 'a', size = 8)+
+  annotate('text', x = .75, y = .8, label = '(B)', size = 9)+
   scale_fill_manual(values=c("#BFA89E","lightcyan1","#8B786D", "lightblue3"))+
   theme_bw()+
   theme(axis.title=element_text(size=23),
@@ -120,7 +123,7 @@ fafp<-fa10%>%
   labs(title="Plant Response Week 10",
        subtitle="N = 13 N = 8 N = 13 N = 8",
        x="",
-       y="Average Percentage of Fungal Damage")
+       y="")
 
 pushViewport(viewport(layout=grid.layout(1,2)))
 print(sufp,vp=viewport(layout.pos.row=1,layout.pos.col = 1))
@@ -129,6 +132,8 @@ print(fafp,vp=viewport(layout.pos.row=1,layout.pos.col = 2))
 
 # stats' ------------------------------------------------------------------
 
+
+#summer presence/absence
 fglmmsu<-glm(Week_8~Beetle*Treatment,
            data=df_sufungpa,
            family=binomial)
@@ -137,9 +142,17 @@ Anova(fglmmsu, type=3)
 
 lsmeans(fglmmsu, pairwise~Treatment*Beetle, adjust='tukey')
 
-#beetle plants have less fungal presence even after adjusting for observations 
+#fall presence/absence
 
-#stole from biomass data idk if it is right
+fglmmfa<-glm(Week_8~Beetle*Treatment,
+             data=df_fafungpa,
+             family=binomial)
+
+Anova(fglmmfa, type=3)
+
+lsmeans(fglmmfa, pairwise~Treatment*Beetle, adjust='tukey')
+
+#Fall avg percentage including zeroes - too low sample size to do
 
 haov<-aov(value~Treatment*Beetle,
           data=subset(df_fafpa,Week==10))
@@ -147,3 +160,12 @@ haov<-aov(value~Treatment*Beetle,
 Anova(haov,type=3)
 
 emmeans(haov,~Treatment*Beetle)
+
+#fall avg percentage w/o zeroes - no anova cause unequal observations
+#linear mixed effects model
+
+falme<-lme(value~Treatment*Beetle,
+           data=subset(df_fa0,Week==10),
+           random=~1|Plant_ID)
+
+anova(falme)

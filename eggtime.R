@@ -126,11 +126,23 @@ print(mu_adults,vp=viewport(layout.pos.row=2,layout.pos.col = 2))
 wilcox.test(Num_Eggs~Treatment,
        data=df_egglar)
 
+numegglme<-lme(Num_Eggs~Treatment,
+           data=df_egglar,
+           random=~1|Plant_ID)
+
+anova(numegglme)
+
 wilcox.test(Eggs_hatched~Treatment,
        data=df_egglar)
 
 wilcox.test(Egg_mass~Treatment,
        data=df_egglar)
+
+eggmasslme<-lme(Egg_mass~Treatment,
+                data=df_egglar,
+                random=~1|Plant_ID)
+
+anova(eggmasslme)
 
 wilcox.test(Adults~Treatment,
        data=df_egglar)
