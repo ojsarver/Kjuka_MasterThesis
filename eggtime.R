@@ -133,7 +133,7 @@ mu_hat<-df_propc%>%
         axis.text=element_text(size=15),
         plot.subtitle=element_text(size=15,hjust=.5))+
   labs(x = "",
-       subtitle = "N = 319                                    N = 50",
+       subtitle = "N = 319 N = 50",
        y = "Average Proportion of Eggs that Hatched")
 
 pushViewport(viewport(layout=grid.layout(2,2)))

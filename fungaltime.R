@@ -120,7 +120,7 @@ fafp<-fa10%>%
          legend.position = "none",
         plot.title = element_text(size=29,hjust=.5),
         plot.subtitle=element_text(size=25,hjust=.5))+
-  labs(title="Plant Response Week 10",
+  labs(title="Plant Response Week 8",
        subtitle="N = 13 N = 8 N = 13 N = 8",
        x="",
        y="")
